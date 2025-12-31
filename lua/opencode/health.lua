@@ -14,7 +14,7 @@ function M.check()
   if vim.fn.executable("opencode") == 1 then
     vim.health.ok("opencode installed")
   else
-    vim.health.error("opencode not found in PATH. Please install OpenCode CLI.")
+    vim.health.error("opencode not found in PATH. Please install Opencode CLI.")
   end
 
   if vim.fn.executable("git") == 1 then

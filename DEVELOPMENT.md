@@ -1,6 +1,6 @@
 # Development Guide for Neovim Projects
 
-This document outlines the development workflow, testing setup, and requirements for working with Neovim Lua projects such as this configuration, Laravel Helper plugin, and OpenCode plugin.
+This document outlines the development workflow, testing setup, and requirements for working with Neovim Lua projects such as this configuration, Laravel Helper plugin, and Opencode plugin.
 
 ## Requirements
 
@@ -183,9 +183,9 @@ make test-basic
 make test-config
 ```
 
-### Running Tests from Within Neovim/OpenCode
+### Running Tests from Within Neovim/Opencode
 
-When running tests from within a Neovim instance (such as when using OpenCode via opencode.nvim), the test script automatically handles the `$NVIM` environment variable which normally points to a socket file instead of the nvim executable.
+When running tests from within a Neovim instance (such as when using Opencode via opencode.nvim), the test script automatically handles the `$NVIM` environment variable which normally points to a socket file instead of the nvim executable.
 
 The test script will:
 

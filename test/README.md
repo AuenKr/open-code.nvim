@@ -1,6 +1,6 @@
-# OpenCode Code Automated Tests
+# Opencode Code Automated Tests
 
-This directory contains the automated test setup for OpenCode Code plugin.
+This directory contains the automated test setup for Opencode Code plugin.
 
 ## Test Structure
 

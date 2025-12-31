@@ -1,4 +1,4 @@
-# OpenCode Neovim Plugin
+# Opencode Neovim Plugin
 
 [![GitHub License](https://img.shields.io/github/license/AuenKr/open-code.nvim?style=flat-square)](https://github.com/AuenKr/open-code.nvim/blob/main/LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/AuenKr/open-code.nvim?style=flat-square)](https://github.com/AuenKr/open-code.nvim/stargazers)
@@ -9,7 +9,7 @@
 [![Version](https://img.shields.io/badge/Version-0.4.2-blue?style=flat-square)](https://github.com/AuenKr/open-code.nvim/releases/tag/v0.4.2)
 [![Discussions](https://img.shields.io/github/discussions/AuenKr/open-code.nvim?style=flat-square&logo=github)](https://github.com/AuenKr/open-code.nvim/discussions)
 
-*A seamless integration between [OpenCode](https://github.com/anthropics/opencode) AI assistant and Neovim*
+*A seamless integration between [Opencode](https://github.com/anthropics/opencode) AI assistant and Neovim*
 
 [Features](#features) •
 [Requirements](#requirements) •
@@ -19,15 +19,15 @@
 [Contributing](#contributing) •
 [Discussions](https://github.com/AuenKr/open-code.nvim/discussions)
 
-![OpenCode in Neovim](https://github.com/AuenKr/open-code.nvim/blob/main/assets/opencode.png?raw=true)
+![Opencode in Neovim](https://github.com/AuenKr/open-code.nvim/blob/main/assets/opencode.png?raw=true)
 
-This plugin was built entirely with OpenCode in a Neovim terminal, and then inside itself using OpenCode for everything!
+This plugin was built entirely with Opencode in a Neovim terminal, and then inside itself using Opencode for everything!
 
 ## Features
 
-- 🚀 Toggle OpenCode in a terminal window with a single key press
+- 🚀 Toggle Opencode in a terminal window with a single key press
 - 🧠 Support for command-line arguments like `--continue` and custom variants
-- 🔄 Automatically detect and reload files modified by OpenCode
+- 🔄 Automatically detect and reload files modified by Opencode
 - ⚡ Real-time buffer updates when files are changed externally
 - 📱 Customizable window position and size (including floating windows)
 - 🤖 Integration with which-key (if available)
@@ -40,7 +40,7 @@ This plugin was built entirely with OpenCode in a Neovim terminal, and then insi
 ## Requirements
 
 - Neovim 0.7.0 or later
-- [OpenCode CLI](https://github.com/anthropics/opencode) tool installed and available in your PATH
+- [Opencode CLI](https://github.com/anthropics/opencode) tool installed and available in your PATH
 - [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) (dependency for git operations)
 
 See [CHANGELOG.md](CHANGELOG.md) for version history and updates.
@@ -94,7 +94,7 @@ require("opencode").setup({
   window = {
     split_ratio = 0.3,      -- Percentage of screen for the terminal window (height for horizontal, width for vertical splits)
     position = "botright",  -- Position of the window: "botright", "topleft", "vertical", "float", etc.
-    enter_insert = true,    -- Whether to enter insert mode when opening OpenCode
+    enter_insert = true,    -- Whether to enter insert mode when opening Opencode
     hide_numbers = true,    -- Hide line numbers in the terminal window
     hide_signcolumn = true, -- Hide the sign column in the terminal window
     
@@ -111,13 +111,13 @@ require("opencode").setup({
   -- File refresh settings
   refresh = {
     enable = true,           -- Enable file change detection
-    updatetime = 100,        -- updatetime when OpenCode is active (milliseconds)
+    updatetime = 100,        -- updatetime when Opencode is active (milliseconds)
     timer_interval = 1000,   -- How often to check for file changes (milliseconds)
     show_notifications = true, -- Show notification when files are reloaded
   },
   -- Git project settings
   git = {
-    use_git_root = true,     -- Set CWD to git root when opening OpenCode (if in git project)
+    use_git_root = true,     -- Set CWD to git root when opening Opencode (if in git project)
   },
   -- Shell-specific settings
   shell = {
@@ -126,7 +126,7 @@ require("opencode").setup({
     popd_cmd = 'popd',       -- Command to pop directory from stack (e.g., 'popd' for bash/zsh, 'exit' for nushell)
   },
   -- Command settings
-  command = "opencode",        -- Command used to launch OpenCode
+  command = "opencode",        -- Command used to launch Opencode
   -- Command variants
   command_variants = {
     -- Conversation management
@@ -139,11 +139,11 @@ require("opencode").setup({
   -- Keymaps
   keymaps = {
     toggle = {
-      normal = "<C-,>",       -- Normal mode keymap for toggling OpenCode, false to disable
-      terminal = "<C-,>",     -- Terminal mode keymap for toggling OpenCode, false to disable
+      normal = "<C-,>",       -- Normal mode keymap for toggling Opencode, false to disable
+      terminal = "<C-,>",     -- Terminal mode keymap for toggling Opencode, false to disable
       variants = {
-        continue = "<leader>cC", -- Normal mode keymap for OpenCode with continue flag
-        verbose = "<leader>cV",  -- Normal mode keymap for OpenCode with verbose flag
+        continue = "<leader>cC", -- Normal mode keymap for Opencode with continue flag
+        verbose = "<leader>cV",  -- Normal mode keymap for Opencode with verbose flag
       },
     },
     window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
@@ -158,31 +158,31 @@ require("opencode").setup({
 
 ```vim
 " In your Vim/Neovim commands or init file:
-:OpenCode
+:Opencode
 ```
 
 ```lua
 -- Or from Lua:
-vim.cmd[[OpenCode]]
+vim.cmd[[Opencode]]
 
 -- Or map to a key:
-vim.keymap.set('n', '<leader>cc', '<cmd>OpenCode<CR>', { desc = 'Toggle OpenCode' })
+vim.keymap.set('n', '<leader>cc', '<cmd>Opencode<CR>', { desc = 'Toggle Opencode' })
 ```
 
 ### Commands
 
 Basic command:
 
-- `:OpenCode` - Toggle the OpenCode terminal window
+- `:Opencode` - Toggle the Opencode terminal window
 
 Conversation management commands:
 
-- `:OpenCodeContinue` - Resume the most recent conversation
-- `:OpenCodeResume` - Display an interactive conversation picker
+- `:OpencodeContinue` - Resume the most recent conversation
+- `:OpencodeResume` - Display an interactive conversation picker
 
 Output options command:
 
-- `:OpenCodeVerbose` - Enable verbose logging with full turn-by-turn output
+- `:OpencodeVerbose` - Enable verbose logging with full turn-by-turn output
 
 Note: Commands are automatically generated for each entry in your `command_variants` configuration.
 
@@ -190,15 +190,15 @@ Note: Commands are automatically generated for each entry in your `command_varia
 
 Default key mappings:
 
-- `<leader>ac` - Toggle OpenCode terminal window (normal mode)
-- `<C-o>` - Toggle OpenCode terminal window (terminal mode)
+- `<leader>ac` - Toggle Opencode terminal window (normal mode)
+- `<C-o>` - Toggle Opencode terminal window (terminal mode)
 
 Variant mode mappings (if configured):
 
-- `<leader>aC` - Toggle OpenCode with --continue flag
-- `<leader>aV` - Toggle OpenCode with --verbose flag
+- `<leader>aC` - Toggle Opencode with --continue flag
+- `<leader>aV` - Toggle Opencode with --verbose flag
 
-Additionally, when in the OpenCode terminal:
+Additionally, when in the Opencode terminal:
 
 - `<C-h>` - Move to the window on the left
 - `<C-j>` - Move to the window below
@@ -207,13 +207,13 @@ Additionally, when in the OpenCode terminal:
 - `<C-f>` - Scroll full-page down
 - `<C-b>` - Scroll full-page up
 
-Note: After scrolling with `<C-f>` or `<C-b>`, you'll need to press the `i` key to re-enter insert mode so you can continue typing to OpenCode.
+Note: After scrolling with `<C-f>` or `<C-b>`, you'll need to press the `i` key to re-enter insert mode so you can continue typing to Opencode.
 
-When OpenCode modifies files that are open in Neovim, they'll be automatically reloaded.
+When Opencode modifies files that are open in Neovim, they'll be automatically reloaded.
 
 ### Floating Window Example
 
-To use OpenCode in a floating window:
+To use Opencode in a floating window:
 
 ```lua
 require("opencode").setup({
@@ -235,9 +235,9 @@ require("opencode").setup({
 
 This plugin:
 
-1. Creates a terminal buffer running the OpenCode CLI
+1. Creates a terminal buffer running the Opencode CLI
 2. Sets up autocommands to detect file changes on disk
-3. Automatically reloads files when they're modified by OpenCode
+3. Automatically reloads files when they're modified by Opencode
 4. Provides convenient keymaps and commands for toggling the terminal
 5. Automatically detects git repositories and sets working directory to the git root
 
@@ -261,7 +261,7 @@ The project includes comprehensive setup for development:
 - Pre-commit hooks for code quality
 - Testing framework with 44 comprehensive tests
 - Linting and formatting tools
-- Weekly dependency updates workflow for OpenCode CLI and actions
+- Weekly dependency updates workflow for Opencode CLI and actions
 
 ```bash
 # Run tests
@@ -287,7 +287,7 @@ If you encounter issues, you can run the following command in Neovim to verify y
 
 This will check for:
 - Neovim version requirements
-- OpenCode CLI installation
+- Opencode CLI installation
 - Required dependencies (plenary.nvim)
 
 ## Community
@@ -298,7 +298,7 @@ This will check for:
 
 ## Acknowledgements
 
-- [OpenCode](https://github.com/anthropics/opencode) by Anthropic - This plugin was entirely built using OpenCode. Development cost: $3.13 gemini 3 pro preview build using opencode
+- [Opencode](https://github.com/anthropics/opencode) by Anthropic - This plugin was entirely built using Opencode. Development cost: 25% used $18.91 spent
 - [Plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Core dependency for testing framework and Git operations
 - [Semantic Versioning](https://semver.org/) - Versioning standard used in this project
 - [Contributor Covenant](https://www.contributor-covenant.org/) - Code of Conduct standard

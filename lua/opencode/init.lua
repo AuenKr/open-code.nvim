@@ -1,11 +1,11 @@
----@mod opencode OpenCode Neovim Integration
+---@mod opencode Opencode Neovim Integration
 ---@brief [[
---- A plugin for seamless integration between OpenCode AI assistant and Neovim.
---- This plugin provides a terminal-based interface to OpenCode within Neovim.
+--- A plugin for seamless integration between Opencode AI assistant and Neovim.
+--- This plugin provides a terminal-based interface to Opencode within Neovim.
 ---
 --- Requirements:
 --- - Neovim 0.7.0 or later
---- - OpenCode CLI tool installed and available in PATH
+--- - Opencode CLI tool installed and available in PATH
 --- - plenary.nvim (dependency for git operations)
 ---
 --- Usage:
@@ -38,14 +38,14 @@ M.config = {}
 --- @type table
 M.opencode = terminal.terminal
 
---- Force insert mode when entering the OpenCode window
+--- Force insert mode when entering the Opencode window
 --- This is a public function used in keymaps
 function M.force_insert_mode()
   terminal.force_insert_mode(M, M.config)
 end
 
 --- Get the current active buffer number
---- @return number|nil bufnr Current OpenCode instance buffer number or nil
+--- @return number|nil bufnr Current Opencode instance buffer number or nil
 local function get_current_buffer_number()
   -- Get current instance from the instances table
   local current_instance = M.opencode.current_instance
@@ -55,7 +55,7 @@ local function get_current_buffer_number()
   return nil
 end
 
---- Toggle the OpenCode terminal window
+--- Toggle the Opencode terminal window
 --- This is a public function used by commands
 function M.toggle()
   terminal.toggle(M, M.config, git)
@@ -67,7 +67,31 @@ function M.toggle()
   end
 end
 
---- Toggle the OpenCode terminal window with a specific command variant
+--- Show the Opencode terminal window (open if hidden, focus if visible)
+--- This is a public function used by commands
+function M.show()
+  terminal.show(M, M.config, git)
+
+  -- Set up terminal navigation keymaps after showing
+  local bufnr = get_current_buffer_number()
+  if bufnr and vim.api.nvim_buf_is_valid(bufnr) then
+    keymaps.setup_terminal_navigation(M, M.config)
+  end
+end
+
+--- Restart the Opencode session
+--- This is a public function used by commands
+function M.restart()
+  terminal.restart(M, M.config, git)
+
+  -- Set up terminal navigation keymaps after restart
+  local bufnr = get_current_buffer_number()
+  if bufnr and vim.api.nvim_buf_is_valid(bufnr) then
+    keymaps.setup_terminal_navigation(M, M.config)
+  end
+end
+
+--- Toggle the Opencode terminal window with a specific command variant
 --- @param variant_name string The name of the command variant to use
 function M.toggle_with_variant(variant_name)
   if not variant_name or not M.config.command_variants[variant_name] then

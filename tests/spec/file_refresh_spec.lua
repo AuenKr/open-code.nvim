@@ -1,4 +1,4 @@
--- Tests for file refresh functionality in OpenCode
+-- Tests for file refresh functionality in Opencode
 local assert = require('luassert')
 local describe = require('plenary.busted').describe
 local it = require('plenary.busted').it
@@ -101,8 +101,8 @@ describe('file refresh', function()
     it('should create an augroup for file refresh', function()
       file_refresh.setup(opencode, config)
       
-      assert.is_not_nil(registered_augroups['OpenCodeFileRefresh'], "File refresh augroup should be created")
-      assert.is_true(registered_augroups['OpenCodeFileRefresh'].clear, "Augroup should be cleared on creation")
+      assert.is_not_nil(registered_augroups['OpencodeFileRefresh'], "File refresh augroup should be created")
+      assert.is_true(registered_augroups['OpencodeFileRefresh'].clear, "Augroup should be cleared on creation")
     end)
     
     it('should register autocmds for file change detection', function()
@@ -155,7 +155,7 @@ describe('file refresh', function()
       file_refresh.setup(opencode, config)
       
       assert.is_false(timer_started, "Timer should not be started when refresh is disabled")
-      assert.is_nil(registered_augroups['OpenCodeFileRefresh'], "Augroup should not be created when refresh is disabled")
+      assert.is_nil(registered_augroups['OpencodeFileRefresh'], "Augroup should not be created when refresh is disabled")
     end)
   end)
   

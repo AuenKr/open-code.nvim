@@ -1,4 +1,4 @@
--- Tests for terminal integration in OpenCode
+-- Tests for terminal integration in Opencode
 local assert = require('luassert')
 local describe = require('plenary.busted').describe
 local it = require('plenary.busted').it
@@ -225,7 +225,8 @@ describe('terminal module', function()
 
       for _, cmd in ipairs(vim_cmd_calls) do
         -- The path should now be shell-escaped
-        if cmd:match("terminal pushd '/test/git/root' && " .. config.command .. " && popd") then
+        -- Command should include positional directory argument
+        if cmd:match("terminal pushd '/test/git/root' && " .. config.command .. " '/test/git/root' && popd") then
           git_root_cmd_found = true
           break
         end
@@ -421,7 +422,8 @@ describe('terminal module', function()
 
       for _, cmd in ipairs(vim_cmd_calls) do
         -- The path should now be shell-escaped in the command
-        if cmd:match('terminal pushd .*/test/git/root.* && ' .. config.command .. ' && popd') then
+        -- Command should include positional directory argument
+        if cmd:match('terminal pushd .*/test/git/root.* && ' .. config.command .. ' .*/test/git/root.* && popd') then
           git_root_cmd_found = true
           break
         end
@@ -446,7 +448,8 @@ describe('terminal module', function()
 
       for _, cmd in ipairs(vim_cmd_calls) do
         -- The path should now be shell-escaped in the command
-        if cmd:match('terminal enter .*/test/git/root.* ; ' .. config.command .. ' ; exit') then
+        -- Command should include positional directory argument
+        if cmd:match('terminal enter .*/test/git/root.* ; ' .. config.command .. ' .*/test/git/root.* ; exit') then
           custom_cmd_found = true
           break
         end
@@ -616,7 +619,7 @@ describe('terminal module', function()
     end)
 
     it('should create floating window when position is "float"', function()
-      -- OpenCode is not running - update for multi-instance support
+      -- Opencode is not running - update for multi-instance support
       opencode.opencode.instances = {}
       
       -- Configure floating window
@@ -647,7 +650,7 @@ describe('terminal module', function()
     end)
 
     it('should calculate float dimensions from percentages', function()
-      -- OpenCode is not running - update for multi-instance support  
+      -- Opencode is not running - update for multi-instance support  
       opencode.opencode.instances = {}
       
       -- Configure floating window with percentage dimensions
@@ -677,7 +680,7 @@ describe('terminal module', function()
     end)
 
     it('should center floating window when position is "center"', function()
-      -- OpenCode is not running - update for multi-instance support
+      -- Opencode is not running - update for multi-instance support
       opencode.opencode.instances = {}
       
       -- Configure floating window to be centered
@@ -701,7 +704,7 @@ describe('terminal module', function()
     end)
 
     it('should reuse existing buffer for floating window when toggling', function()
-      -- OpenCode is already running - update for multi-instance support
+      -- Opencode is already running - update for multi-instance support
       local instance_id = "global"  -- Single instance mode
       opencode.opencode.instances = { [instance_id] = 42 }
       win_ids = {} -- No windows displaying the buffer
@@ -730,7 +733,7 @@ describe('terminal module', function()
     end)
 
     it('should handle out-of-bounds dimensions gracefully', function()
-      -- OpenCode is not running
+      -- Opencode is not running
       opencode.opencode.bufnr = nil
       
       -- Configure floating window with large dimensions

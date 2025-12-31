@@ -3,6 +3,8 @@ local assert = require('luassert')
 local describe = require('plenary.busted').describe
 local it = require('plenary.busted').it
 
+-- Ensure we load the actual module, not a cached mock
+package.loaded['opencode.version'] = nil
 local version = require('opencode.version')
 
 describe('version', function()
@@ -49,7 +51,7 @@ describe('version', function()
 
       -- Check if vim.notify was called with correct parameters
       assert.is_true(was_called, 'vim.notify should have been called')
-      assert.are.equal('OpenCode version: ' .. version.string(), message_received)
+      assert.are.equal('Opencode version: ' .. version.string(), message_received)
       assert.are.equal(vim.log.levels.INFO, level_received)
     end)
   end)

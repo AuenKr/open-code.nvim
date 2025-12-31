@@ -1,4 +1,4 @@
-*opencode.txt*             Seamless integration between OpenCode AI and Neovim
+*opencode.txt*             Seamless integration between Opencode AI and Neovim
 
 ==============================================================================
 CONTENTS                                                   *opencode-contents*
@@ -15,14 +15,14 @@ CONTENTS                                                   *opencode-contents*
 ==============================================================================
 1. INTRODUCTION                                        *opencode-introduction*
 
-OpenCode is a plugin that provides seamless integration between the OpenCode
+Opencode is a plugin that provides seamless integration between the Opencode
 Code AI assistant (command-line tool) and Neovim. It allows you to:
 
-- Toggle OpenCode in a terminal window at the bottom of your Neovim screen
-- Automatically detect and reload files modified by OpenCode
-- Keep your Neovim buffers in sync with any changes made by OpenCode
+- Toggle Opencode in a terminal window at the bottom of your Neovim screen
+- Automatically detect and reload files modified by Opencode
+- Keep your Neovim buffers in sync with any changes made by Opencode
 
-NOTE: This plugin requires the official OpenCode CLI tool to be installed
+NOTE: This plugin requires the official Opencode CLI tool to be installed
 and available in your system's PATH.
 
 ==============================================================================
@@ -66,18 +66,18 @@ Using packer.nvim:
 
 PREREQUISITES:
 - Neovim 0.7.0 or later
-- OpenCode CLI tool (https://github.com/anthropics/opencode)
+- Opencode CLI tool (https://github.com/anthropics/opencode)
 - plenary.nvim plugin (https://github.com/nvim-lua/plenary.nvim) for git operations
 
 ==============================================================================
 3. USAGE                                                    *opencode-usage*
 
-- Use the `:OpenCode` command to toggle the OpenCode terminal window
-- Press <leader>ac in normal mode to toggle OpenCode terminal window
-- Press <C-o> in the terminal to close the OpenCode window
-- When OpenCode modifies files that are open in Neovim, they'll be
+- Use the `:Opencode` command to toggle the Opencode terminal window
+- Press <leader>ac in normal mode to toggle Opencode terminal window
+- Press <C-o> in the terminal to close the Opencode window
+- When Opencode modifies files that are open in Neovim, they'll be
   automatically reloaded
-- When in a git repository, OpenCode will automatically use the git root
+- When in a git repository, Opencode will automatically use the git root
   directory as its working directory using pushd/popd commands (configurable)
 
 ==============================================================================
@@ -92,7 +92,7 @@ default configuration:
     window = {
       split_ratio = 0.3,      -- Percentage of screen for the terminal window (height or width)
       position = "botright",  -- Position of the window: "botright", "topleft", "vertical"/"vsplit", "float", etc.
-      enter_insert = true,    -- Whether to enter insert mode when opening OpenCode
+      enter_insert = true,    -- Whether to enter insert mode when opening Opencode
       start_in_normal_mode = false, -- Whether to start in normal mode instead of insert mode
       hide_numbers = true,    -- Hide line numbers in the terminal window
       hide_signcolumn = true, -- Hide the sign column in the terminal window
@@ -110,16 +110,16 @@ default configuration:
     -- File refresh settings
     refresh = {
       enable = true,           -- Enable file change detection
-      updatetime = 100,        -- updatetime when OpenCode is active (milliseconds)
+      updatetime = 100,        -- updatetime when Opencode is active (milliseconds)
       timer_interval = 1000,   -- How often to check for file changes (milliseconds)
       show_notifications = true, -- Show notification when files are reloaded
     },
     -- Git project settings
     git = {
-      use_git_root = true,     -- Set CWD to git root when opening OpenCode (if in git project)
+      use_git_root = true,     -- Set CWD to git root when opening Opencode (if in git project)
     },
     -- Command settings
-    command = "opencode",        -- Command used to launch OpenCode (do not include --cwd)
+    command = "opencode",        -- Command used to launch Opencode (do not include --cwd)
     -- Command variants
     command_variants = {
       -- Conversation management
@@ -132,11 +132,11 @@ default configuration:
     -- Keymaps
     keymaps = {
       toggle = {
-        normal = "<leader>ac",  -- Normal mode keymap for toggling OpenCode
-        terminal = "<C-o>",     -- Terminal mode keymap for toggling OpenCode
+        normal = "<leader>ac",  -- Normal mode keymap for toggling Opencode
+        terminal = "<C-o>",     -- Terminal mode keymap for toggling Opencode
         variants = {
-          continue = "<leader>aC", -- Normal mode keymap for OpenCode with continue flag
-          verbose = "<leader>aV",  -- Normal mode keymap for OpenCode with verbose flag
+          continue = "<leader>aC", -- Normal mode keymap for Opencode with continue flag
+          verbose = "<leader>aV",  -- Normal mode keymap for Opencode with verbose flag
         },
       }
     }
@@ -146,19 +146,19 @@ default configuration:
 ==============================================================================
 5. COMMANDS                                                *opencode-commands*
 
-:OpenCode                                                       *:OpenCode*
-    Toggle the OpenCode terminal window.
+:Opencode                                                       *:Opencode*
+    Toggle the Opencode terminal window.
 
 Conversation Management Commands:
-:OpenCodeContinue                                           *:OpenCodeContinue*
-    Toggle OpenCode with the --continue flag to resume the most recent conversation.
+:OpencodeContinue                                           *:OpencodeContinue*
+    Toggle Opencode with the --continue flag to resume the most recent conversation.
 
-:OpenCodeResume                                             *:OpenCodeResume*
-    Toggle OpenCode with the --resume flag to display an interactive conversation picker.
+:OpencodeResume                                             *:OpencodeResume*
+    Toggle Opencode with the --resume flag to display an interactive conversation picker.
 
 Output Options Commands:
-:OpenCodeVerbose                                           *:OpenCodeVerbose*
-    Toggle OpenCode with the --verbose flag for full turn-by-turn output.
+:OpencodeVerbose                                           *:OpencodeVerbose*
+    Toggle Opencode with the --verbose flag for full turn-by-turn output.
 
 Note: Commands are automatically generated for each entry in your command_variants configuration.
 
@@ -167,15 +167,15 @@ Note: Commands are automatically generated for each entry in your command_varian
 
 Default key mappings:
 
-  <leader>ac   Toggle OpenCode terminal window (normal mode)
-  <C-o>        Toggle OpenCode terminal window (terminal mode)
+  <leader>ac   Toggle Opencode terminal window (normal mode)
+  <C-o>        Toggle Opencode terminal window (terminal mode)
   
 Variant mode mappings (if configured):
 
-  <leader>aC   Toggle OpenCode with --continue flag
-  <leader>aV   Toggle OpenCode with --verbose flag
+  <leader>aC   Toggle Opencode with --continue flag
+  <leader>aV   Toggle Opencode with --verbose flag
 
-Additionally, when in the OpenCode terminal:
+Additionally, when in the Opencode terminal:
 
   <C-h>        Move to the window on the left
   <C-j>        Move to the window below
@@ -185,14 +185,14 @@ Additionally, when in the OpenCode terminal:
   <C-b>        Scroll full-page up
 
 Note: After scrolling with <C-f> or <C-b>, you'll need to press the 'i' key
-to re-enter insert mode so you can continue typing to OpenCode.
+to re-enter insert mode so you can continue typing to Opencode.
 
 You can customize these mappings in the configuration.
 
 ==============================================================================
 7. CONTRIBUTING                                          *opencode-contributing*
 
-Contributions to OpenCode are welcome! If you would like to contribute,
+Contributions to Opencode are welcome! If you would like to contribute,
 please check the CONTRIBUTING.md file in the repository for guidelines:
 https://github.com/AuenKr/open-code.nvim/blob/main/CONTRIBUTING.md
 

@@ -1,6 +1,6 @@
-# Contributing to OpenCode.nvim
+# Contributing to Opencode.nvim
 
-Thank you for your interest in contributing to OpenCode.nvim! This document provides guidelines and instructions to help you contribute effectively.
+Thank you for your interest in contributing to Opencode.nvim! This document provides guidelines and instructions to help you contribute effectively.
 
 ## Code of Conduct
 
@@ -8,7 +8,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 ## Ways to Contribute
 
-There are several ways you can contribute to OpenCode.nvim:
+There are several ways you can contribute to Opencode.nvim:
 
 - Reporting bugs
 - Suggesting enhancements
@@ -24,7 +24,7 @@ Before submitting an issue, please:
 2. Use the issue template if available
 3. Include as much relevant information as possible:
    - Neovim version
-   - OpenCode CLI version
+   - Opencode CLI version
    - Operating system
    - Steps to reproduce the issue
    - Expected vs. actual behavior
@@ -60,7 +60,7 @@ To set up a development environment:
 
 3. Link the repository to your Neovim plugins directory or use your plugin manager's development mode
 
-4. Make sure you have the OpenCode CLI tool installed and properly configured
+4. Make sure you have the Opencode CLI tool installed and properly configured
 
 5. Set up the Git hooks for automatic code formatting:
 
@@ -128,7 +128,7 @@ See `test/README.md` and `tests/README.md` for more details on the different tes
 
 - Test in different environments (Linux, macOS, Windows if possible)
 - Test with different configurations
-- Test the integration with the OpenCode CLI
+- Test the integration with the Opencode CLI
 - Use the minimal test configuration (`tests/minimal-init.lua`) to verify your changes in isolation
 
 ## Documentation
@@ -141,10 +141,10 @@ When adding new features, please update the documentation:
 
 ## License
 
-By contributing to OpenCode.nvim, you agree that your contributions will be licensed under the project's MIT license.
+By contributing to Opencode.nvim, you agree that your contributions will be licensed under the project's MIT license.
 
 ## Questions?
 
 If you have any questions about contributing, please open an issue with your question.
 
-Thank you for contributing to OpenCode.nvim!
+Thank you for contributing to Opencode.nvim!

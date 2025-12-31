@@ -1,8 +1,8 @@
-# Project: OpenCode Plugin
+# Project: Opencode Plugin
 
 ## Overview
 
-OpenCode Plugin provides seamless integration between the OpenCode AI assistant and Neovim. It enables direct communication with the OpenCode CLI from within the editor, context-aware interactions, and various utilities to enhance AI-assisted development within Neovim.
+Opencode Plugin provides seamless integration between the Opencode AI assistant and Neovim. It enables direct communication with the Opencode CLI from within the editor, context-aware interactions, and various utilities to enhance AI-assisted development within Neovim.
 
 ## Essential Commands
 
@@ -15,7 +15,7 @@ OpenCode Plugin provides seamless integration between the OpenCode AI assistant 
 ## Project Structure
 
 - `/lua/opencode`: Main plugin code
-- `/lua/opencode/cli`: OpenCode CLI integration
+- `/lua/opencode/cli`: Opencode CLI integration
 - `/lua/opencode/ui`: UI components for interactions
 - `/lua/opencode/context`: Context management utilities
 - `/after/plugin`: Plugin setup and initialization
@@ -26,15 +26,15 @@ OpenCode Plugin provides seamless integration between the OpenCode AI assistant 
 
 - Integrating nvim-toolkit for shared utilities
 - Adding hooks-util as git submodule for development workflow
-- Enhancing bidirectional communication with OpenCode CLI
+- Enhancing bidirectional communication with Opencode CLI
 - Implementing better context synchronization
 - Adding buffer-specific context management
 
 ## Multi-Instance Support
 
-The plugin supports running multiple OpenCode instances, one per git repository root:
+The plugin supports running multiple Opencode instances, one per git repository root:
 
-- Each git repository maintains its own OpenCode instance
+- Each git repository maintains its own Opencode instance
 - Works across multiple Neovim tabs with different projects
 - Allows working on multiple projects in parallel
 - Configurable via `git.multi_instance` option (defaults to `true`)
@@ -46,7 +46,7 @@ Example configuration to disable multi-instance mode:
 ```lua
 require('opencode').setup({
   git = {
-    multi_instance = false  -- Use a single global OpenCode instance
+    multi_instance = false  -- Use a single global Opencode instance
   }
 })
 ```

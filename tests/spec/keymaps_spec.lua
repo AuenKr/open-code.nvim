@@ -1,4 +1,4 @@
--- Tests for keymaps in OpenCode
+-- Tests for keymaps in Opencode
 local assert = require('luassert')
 local describe = require('plenary.busted').describe
 local it = require('plenary.busted').it

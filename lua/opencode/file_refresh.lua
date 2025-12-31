@@ -1,7 +1,7 @@
 ---@mod opencode.file_refresh File refresh functionality for opencode.nvim
 ---@brief [[
 --- This module provides file refresh functionality to detect and reload files
---- that have been modified by OpenCode or other external processes.
+--- that have been modified by Opencode or other external processes.
 ---@brief ]]
 
 local M = {}
@@ -18,7 +18,7 @@ function M.setup(opencode, config)
     return
   end
 
-  local augroup = vim.api.nvim_create_augroup('OpenCodeFileRefresh', { clear = true })
+  local augroup = vim.api.nvim_create_augroup('OpencodeFileRefresh', { clear = true })
 
   -- Create an autocommand that checks for file changes more frequently
   vim.api.nvim_create_autocmd({
@@ -56,7 +56,7 @@ function M.setup(opencode, config)
       0,
       config.refresh.timer_interval,
       vim.schedule_wrap(function()
-        -- Only check time if there's an active OpenCode terminal
+        -- Only check time if there's an active Opencode terminal
         local current_instance = opencode.opencode.current_instance
         local bufnr = current_instance and opencode.opencode.instances[current_instance]
         if bufnr and vim.api.nvim_buf_is_valid(bufnr) and #vim.fn.win_findbuf(bufnr) > 0 then
@@ -78,10 +78,10 @@ function M.setup(opencode, config)
     })
   end
 
-  -- Set a shorter updatetime while OpenCode is open
+  -- Set a shorter updatetime while Opencode is open
   opencode.opencode.saved_updatetime = vim.o.updatetime
 
-  -- When OpenCode opens, set a shorter updatetime
+  -- When Opencode opens, set a shorter updatetime
   vim.api.nvim_create_autocmd('TermOpen', {
     group = augroup,
     pattern = '*',
@@ -93,10 +93,10 @@ function M.setup(opencode, config)
         vim.o.updatetime = config.refresh.updatetime
       end
     end,
-    desc = 'Set shorter updatetime when OpenCode is open',
+    desc = 'Set shorter updatetime when Opencode is open',
   })
 
-  -- When OpenCode closes, restore normal updatetime
+  -- When Opencode closes, restore normal updatetime
   vim.api.nvim_create_autocmd('TermClose', {
     group = augroup,
     pattern = '*',
@@ -106,7 +106,7 @@ function M.setup(opencode, config)
         vim.o.updatetime = opencode.opencode.saved_updatetime
       end
     end,
-    desc = 'Restore normal updatetime when OpenCode is closed',
+    desc = 'Restore normal updatetime when Opencode is closed',
   })
 end
 

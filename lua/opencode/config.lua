@@ -6,12 +6,12 @@
 
 local M = {}
 
---- OpenCodeWindow class for window configuration
--- @table OpenCodeWindow
+--- OpencodeWindow class for window configuration
+-- @table OpencodeWindow
 -- @field split_ratio number Percentage of screen for the terminal window (height for horizontal, width for vertical)
 -- @field position string Position of the window: "botright", "topleft", "vertical", "float" etc.
--- @field enter_insert boolean Whether to enter insert mode when opening OpenCode
--- @field start_in_normal_mode boolean Whether to start in normal mode instead of insert mode when opening OpenCode
+-- @field enter_insert boolean Whether to enter insert mode when opening Opencode
+-- @field start_in_normal_mode boolean Whether to start in normal mode instead of insert mode when opening Opencode
 -- @field hide_numbers boolean Hide line numbers in the terminal window
 -- @field hide_signcolumn boolean Hide the sign column in the terminal window
 -- @field float table|nil Floating window configuration (only used when position is "float")
@@ -22,31 +22,31 @@ local M = {}
 -- @field float.border string Border style: "none", "single", "double", "rounded", "solid", "shadow", or array
 -- @field float.relative string Relative positioning: "editor" or "cursor"
 
---- OpenCodeRefresh class for file refresh configuration
--- @table OpenCodeRefresh
+--- OpencodeRefresh class for file refresh configuration
+-- @table OpencodeRefresh
 -- @field enable boolean Enable file change detection
--- @field updatetime number updatetime when OpenCode is active (milliseconds)
+-- @field updatetime number updatetime when Opencode is active (milliseconds)
 -- @field timer_interval number How often to check for file changes (milliseconds)
 -- @field show_notifications boolean Show notification when files are reloaded
 
---- OpenCodeGit class for git integration configuration
--- @table OpenCodeGit
--- @field use_git_root boolean Set CWD to git root when opening OpenCode (if in git project)
--- @field multi_instance boolean Use multiple OpenCode instances (one per git root)
+--- OpencodeGit class for git integration configuration
+-- @table OpencodeGit
+-- @field use_git_root boolean Set CWD to git root when opening Opencode (if in git project)
+-- @field multi_instance boolean Use multiple Opencode instances (one per git root)
 
---- OpenCodeKeymapsToggle class for toggle keymap configuration
--- @table OpenCodeKeymapsToggle
--- @field normal string|boolean Normal mode keymap for toggling OpenCode, false to disable
--- @field terminal string|boolean Terminal mode keymap for toggling OpenCode, false to disable
+--- OpencodeKeymapsToggle class for toggle keymap configuration
+-- @table OpencodeKeymapsToggle
+-- @field normal string|boolean Normal mode keymap for toggling Opencode, false to disable
+-- @field terminal string|boolean Terminal mode keymap for toggling Opencode, false to disable
 
---- OpenCodeKeymaps class for keymap configuration
--- @table OpenCodeKeymaps
--- @field toggle OpenCodeKeymapsToggle Keymaps for toggling OpenCode
+--- OpencodeKeymaps class for keymap configuration
+-- @table OpencodeKeymaps
+-- @field toggle OpencodeKeymapsToggle Keymaps for toggling Opencode
 -- @field window_navigation boolean Enable window navigation keymaps
 -- @field scrolling boolean Enable scrolling keymaps
 
---- OpenCodeCommandVariants class for command variant configuration
--- @table OpenCodeCommandVariants
+--- OpencodeCommandVariants class for command variant configuration
+-- @table OpencodeCommandVariants
 -- Conversation management:
 -- @field continue string|boolean Resume the most recent conversation
 -- @field resume string|boolean Display an interactive conversation picker
@@ -54,31 +54,31 @@ local M = {}
 -- @field verbose string|boolean Enable verbose logging with full turn-by-turn output
 -- Additional options can be added as needed
 
---- OpenCodeShell class for shell configuration
--- @table OpenCodeShell
+--- OpencodeShell class for shell configuration
+-- @table OpencodeShell
 -- @field separator string Command separator used in shell commands (e.g., '&&', ';', '|')
 -- @field pushd_cmd string Command to push directory onto stack (e.g., 'pushd' for bash/zsh)
 -- @field popd_cmd string Command to pop directory from stack (e.g., 'popd' for bash/zsh)
 
---- OpenCodeConfig class for main configuration
--- @table OpenCodeConfig
--- @field window OpenCodeWindow Terminal window settings
--- @field refresh OpenCodeRefresh File refresh settings
--- @field git OpenCodeGit Git integration settings
--- @field shell OpenCodeShell Shell-specific configuration
--- @field command string Command used to launch OpenCode
--- @field command_variants OpenCodeCommandVariants Command variants configuration
--- @field keymaps OpenCodeKeymaps Keymaps configuration
+--- OpencodeConfig class for main configuration
+-- @table OpencodeConfig
+-- @field window OpencodeWindow Terminal window settings
+-- @field refresh OpencodeRefresh File refresh settings
+-- @field git OpencodeGit Git integration settings
+-- @field shell OpencodeShell Shell-specific configuration
+-- @field command string Command used to launch Opencode
+-- @field command_variants OpencodeCommandVariants Command variants configuration
+-- @field keymaps OpencodeKeymaps Keymaps configuration
 
 --- Default configuration options
---- @type OpenCodeConfig
+--- @type OpencodeConfig
 M.default_config = {
   -- Terminal window settings
   window = {
     split_ratio = 0.4, -- Percentage of screen for the terminal window (height or width)
     height_ratio = 0.3, -- DEPRECATED: Use split_ratio instead
     position = 'vertical', -- Position of the window: "botright", "topleft", "vertical", "float", etc.
-    enter_insert = true, -- Whether to enter insert mode when opening OpenCode
+    enter_insert = true, -- Whether to enter insert mode when opening Opencode
     start_in_normal_mode = false, -- Whether to start in normal mode instead of insert mode
     hide_numbers = true, -- Hide line numbers in the terminal window
     hide_signcolumn = true, -- Hide the sign column in the terminal window
@@ -95,14 +95,14 @@ M.default_config = {
   -- File refresh settings
   refresh = {
     enable = true, -- Enable file change detection
-    updatetime = 100, -- updatetime to use when OpenCode is active (milliseconds)
+    updatetime = 100, -- updatetime to use when Opencode is active (milliseconds)
     timer_interval = 1000, -- How often to check for file changes (milliseconds)
     show_notifications = true, -- Show notification when files are reloaded
   },
   -- Git integration settings
   git = {
-    use_git_root = true, -- Set CWD to git root when opening OpenCode (if in git project)
-    multi_instance = true, -- Use multiple OpenCode instances (one per git root)
+    use_git_root = true, -- Set CWD to git root when opening Opencode (if in git project)
+    multi_instance = true, -- Use multiple Opencode instances (one per git root)
   },
   -- Shell-specific settings
   shell = {
@@ -111,7 +111,7 @@ M.default_config = {
     popd_cmd = 'popd', -- Command to pop directory from stack
   },
   -- Command settings
-  command = 'opencode', -- Command used to launch OpenCode
+  command = 'opencode', -- Command used to launch Opencode
   -- Command variants
   command_variants = {
     -- Conversation management
@@ -124,11 +124,12 @@ M.default_config = {
   -- Keymaps
   keymaps = {
     toggle = {
-      normal = '<leader>ac', -- Normal mode keymap for toggling OpenCode
-      terminal = '<C-o>', -- Terminal mode keymap for toggling OpenCode
+      normal = '<leader>a', -- Normal mode keymap for toggling Opencode
+      terminal = '<C-o>', -- Terminal mode keymap for toggling Opencode
       variants = {
-        continue = '<leader>aC', -- Normal mode keymap for OpenCode with continue flag
-        verbose = '<leader>aV', -- Normal mode keymap for OpenCode with verbose flag
+        -- Variants are disabled by default to allow <leader>a as a direct toggle
+        -- continue = '<leader>aC', -- Normal mode keymap for Opencode with continue flag
+        -- verbose = '<leader>aV', -- Normal mode keymap for Opencode with verbose flag
       },
     },
     window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
@@ -382,7 +383,7 @@ local function validate_command_variants_config(command_variants)
 end
 
 --- Validate configuration options
---- @param config OpenCodeConfig
+--- @param config OpencodeConfig
 --- @return boolean valid
 --- @return string? error_message
 local function validate_config(config)
@@ -452,7 +453,7 @@ end
 --- Parse user configuration and merge with defaults
 --- @param user_config? table
 --- @param silent? boolean Set to true to suppress error notifications (for tests)
---- @return OpenCodeConfig
+--- @return OpencodeConfig
 function M.parse_config(user_config, silent)
   -- Handle backward compatibility first
   if user_config and user_config.window then
@@ -476,7 +477,7 @@ function M.parse_config(user_config, silent)
   if not valid then
     -- Only notify if not in silent mode
     if not silent then
-      vim.notify('OpenCode: ' .. err, vim.log.levels.ERROR)
+      vim.notify('Opencode: ' .. err, vim.log.levels.ERROR)
     end
     -- Fall back to default config in case of error
     return vim.deepcopy(M.default_config)

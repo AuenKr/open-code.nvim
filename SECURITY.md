@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-The following versions of OpenCode are currently supported with security updates:
+The following versions of Opencode are currently supported with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -12,7 +12,7 @@ The following versions of OpenCode are currently supported with security updates
 
 ## Reporting a Vulnerability
 
-We take the security of OpenCode seriously. If you believe you've found a security vulnerability, please follow these steps:
+We take the security of Opencode seriously. If you believe you've found a security vulnerability, please follow these steps:
 
 1. **Do not disclose the vulnerability publicly**
 2. **Open a private vulnerability report** through the GitHub repository's Security tab
@@ -35,11 +35,11 @@ When a security vulnerability is reported:
 
 ## Security Best Practices for Users
 
-- Keep OpenCode updated to the latest supported version
+- Keep Opencode updated to the latest supported version
 - Regularly update Neovim and related plugins
 - Be cautious when sharing sensitive information with AI assistants
-- Follow the principle of least privilege when configuring OpenCode
-- Review OpenCode's integration with external tools
+- Follow the principle of least privilege when configuring Opencode
+- Review Opencode's integration with external tools
 
 ## Security Updates
 

@@ -1,4 +1,4 @@
--- Luacheckrc for OpenCode Code plugin
+-- Luacheckrc for Opencode Code plugin
 
 std = {
   globals = {

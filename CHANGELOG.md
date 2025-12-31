@@ -54,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Acknowledgements section in README
 - Enhanced badges and Table of Contents in README
 - Comprehensive test suite with 44 tests covering all core functionality
-- Terminal integration tests for OpenCode Code
+- Terminal integration tests for Opencode Code
 - Git module tests for repository handling
 - Keymap tests for custom key mappings
 

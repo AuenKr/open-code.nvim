@@ -1,4 +1,4 @@
--- Minimal configuration for testing the OpenCode plugin
+-- Minimal configuration for testing the Opencode plugin
 -- Used for bug reproduction and testing
 
 -- Detect the plugin directory (works whether run from plugin root or a different directory)
@@ -54,7 +54,7 @@ print('Runtime path: ' .. vim.o.runtimepath)
 -- Load the plugin
 local status_ok, opencode = pcall(require, 'opencode')
 if status_ok then
-  print('✓ Successfully loaded OpenCode plugin')
+  print('✓ Successfully loaded Opencode plugin')
 
   -- First create a validated config (in silent mode)
   local config_module = require('opencode.config')
@@ -89,15 +89,15 @@ if status_ok then
 
   -- Print available commands for user reference
   print('\nAvailable Commands:')
-  print('  :OpenCode             - Start a new OpenCode session')
-  print('  :OpenCodeToggle       - Toggle the OpenCode terminal')
-  print('  :OpenCodeRestart      - Restart the OpenCode session')
-  print('  :OpenCodeSuspend      - Suspend the current OpenCode session')
-  print('  :OpenCodeResume       - Resume the suspended OpenCode session')
-  print('  :OpenCodeQuit         - Quit the current OpenCode session')
-  print('  :OpenCodeRefreshFiles - Refresh the current working directory information')
+  print('  :Opencode             - Start a new Opencode session')
+  print('  :OpencodeToggle       - Toggle the Opencode terminal')
+  print('  :OpencodeRestart      - Restart the Opencode session')
+  print('  :OpencodeSuspend      - Suspend the current Opencode session')
+  print('  :OpencodeResume       - Resume the suspended Opencode session')
+  print('  :OpencodeQuit         - Quit the current Opencode session')
+  print('  :OpencodeRefreshFiles - Refresh the current working directory information')
 else
-  print('✗ Failed to load OpenCode plugin: ' .. tostring(opencode))
+  print('✗ Failed to load Opencode plugin: ' .. tostring(opencode))
 end
 
 -- Set up minimal UI elements
@@ -105,6 +105,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'yes'
 
-print('\nOpenCode minimal test environment loaded.')
+print('\nOpencode minimal test environment loaded.')
 print('- Type :messages to see any error messages')
-print("- Try ':OpenCode' to start a new session")
+print("- Try ':Opencode' to start a new session")

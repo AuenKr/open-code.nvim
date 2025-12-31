@@ -1,6 +1,6 @@
 # Support
 
-This document outlines the various ways you can get help with OpenCode.
+This document outlines the various ways you can get help with Opencode.
 
 ## GitHub Discussions
 
@@ -8,7 +8,7 @@ For general questions, ideas, or community discussions, please use [GitHub Discu
 
 Categories:
 
-- **Q&A**: For specific questions about using OpenCode
+- **Q&A**: For specific questions about using Opencode
 - **Ideas**: For suggesting new features
 - **Show and Tell**: For sharing your customizations or use cases
 - **General**: For general conversation about AI integration with Neovim
@@ -25,15 +25,15 @@ Before creating a new issue:
 
 ## Documentation
 
-For help with using OpenCode:
+For help with using Opencode:
 
 - Read the [README.md](README.md) for basic usage and installation
 - Check the [DEVELOPMENT.md](DEVELOPMENT.md) for development information
 - See the [doc/opencode.txt](doc/opencode.txt) for Neovim help documentation
 
-## OpenCode File
+## Opencode File
 
-See the [OPENCODE.md](OPENCODE.md) file for additional configuration options and tips for using OpenCode effectively.
+See the [OPENCODE.md](OPENCODE.md) file for additional configuration options and tips for using Opencode effectively.
 
 ## Community Channels
 

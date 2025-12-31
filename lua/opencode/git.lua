@@ -14,8 +14,16 @@ function M.get_git_root()
     return '/home/user/project'
   end
 
+  -- Get the directory of the current buffer to ensure we check the correct git root
+  -- regardless of global CWD.
+  local buffer_dir = vim.fn.expand('%:p:h')
+  if buffer_dir == '' then
+    buffer_dir = vim.fn.getcwd()
+  end
+  local quoted_dir = vim.fn.shellescape(buffer_dir)
+
   -- Check if we're in a git repository
-  local handle = io.popen('git rev-parse --is-inside-work-tree 2>/dev/null')
+  local handle = io.popen('git -C ' .. quoted_dir .. ' rev-parse --is-inside-work-tree 2>/dev/null')
   if not handle then
     return nil
   end
@@ -28,7 +36,7 @@ function M.get_git_root()
 
   if result == 'true' then
     -- Get the git root path
-    local root_handle = io.popen('git rev-parse --show-toplevel 2>/dev/null')
+    local root_handle = io.popen('git -C ' .. quoted_dir .. ' rev-parse --show-toplevel 2>/dev/null')
     if not root_handle then
       return nil
     end

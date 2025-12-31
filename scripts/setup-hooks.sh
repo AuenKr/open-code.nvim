@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to set up Git hooks for OpenCode plugin
+# Script to set up Git hooks for Opencode plugin
 
 # Make sure we're in the project root
 cd "$(dirname "$0")/.." || exit 1

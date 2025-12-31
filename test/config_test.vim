@@ -1,4 +1,4 @@
-" Config module test script for OpenCode Code
+" Config module test script for Opencode Code
 " Tests the configuration validation and merging
 
 echo "Config test started"

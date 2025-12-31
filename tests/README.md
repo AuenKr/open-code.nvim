@@ -1,6 +1,6 @@
-# OpenCode Testing
+# Opencode Testing
 
-This directory contains resources for testing the OpenCode plugin.
+This directory contains resources for testing the Opencode plugin.
 
 ## Overview
 
@@ -11,7 +11,7 @@ There are two main components:
 
 ## Test Coverage
 
-The automated test suite covers the following components of the OpenCode plugin:
+The automated test suite covers the following components of the Opencode plugin:
 
 1. **Core Functionality**
    - Plugin initialization and setup
@@ -46,7 +46,7 @@ The test suite currently contains 44 tests covering all major components of the 
 
 ## Minimal Test Configuration
 
-The `minimal-init.lua` file provides a minimal Neovim configuration for testing the OpenCode plugin in isolation. This standardized initialization file (recently renamed from `minimal_init.lua` to match conventions used across related Neovim projects) is useful for:
+The `minimal-init.lua` file provides a minimal Neovim configuration for testing the Opencode plugin in isolation. This standardized initialization file (recently renamed from `minimal_init.lua` to match conventions used across related Neovim projects) is useful for:
 
 1. Reproducing and debugging issues
 2. Testing new features in a clean environment
@@ -150,4 +150,4 @@ When reporting issues, please include the following information:
 
 1. Steps to reproduce the issue using this minimal config
 2. Any error messages from `:messages`
-3. The exact Neovim and OpenCode plugin versions
+3. The exact Neovim and Opencode plugin versions

@@ -1,4 +1,4 @@
-" Basic test script for OpenCode Code
+" Basic test script for Opencode Code
 " Doesn't rely on busted, just checks that the plugin loads
 
 echo "Basic test started"

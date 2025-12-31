@@ -17,10 +17,23 @@ function M.register_keymaps(opencode, config)
     vim.api.nvim_set_keymap(
       'n',
       config.keymaps.toggle.normal,
-      [[<cmd>OpenCode<CR>]],
-      vim.tbl_extend('force', map_opts, { desc = 'OpenCode: Toggle' })
+      [[<cmd>Opencode<CR>]],
+      vim.tbl_extend('force', map_opts, { desc = 'Opencode: Toggle' })
     )
   end
+
+  -- Normal mode restart keymap
+  vim.api.nvim_set_keymap(
+    'n',
+    '<leader>A',
+    [[<cmd>OpencodeRestart<CR>]],
+    vim.tbl_extend('force', map_opts, { desc = 'Opencode: New Session' })
+  )
+
+  -- Visual mode "Add to Context" keymap (<leader>a)
+  vim.keymap.set('v', '<leader>a', function()
+    require('opencode.commands').add_to_context(opencode, true)
+  end, { desc = 'Opencode: Add to Context', noremap = true, silent = true })
 
   if config.keymaps.toggle.terminal then
     -- Terminal mode toggle keymap
@@ -29,8 +42,8 @@ function M.register_keymaps(opencode, config)
     vim.api.nvim_set_keymap(
       't',
       config.keymaps.toggle.terminal,
-      [[<C-\><C-n>:OpenCode<CR>]],
-      vim.tbl_extend('force', map_opts, { desc = 'OpenCode: Toggle' })
+      [[<C-\><C-n>:Opencode<CR>]],
+      vim.tbl_extend('force', map_opts, { desc = 'Opencode: Toggle' })
     )
   end
 
@@ -38,15 +51,15 @@ function M.register_keymaps(opencode, config)
   if config.keymaps.toggle.variants then
     for variant_name, keymap in pairs(config.keymaps.toggle.variants) do
       if keymap then
-        -- Convert variant name to PascalCase for command name (e.g., "continue" -> "Continue")
+        -- Convert variant name to PascalCase for command name
         local capitalized_name = variant_name:gsub('^%l', string.upper)
-        local cmd_name = 'OpenCode' .. capitalized_name
+        local cmd_name = 'Opencode' .. capitalized_name
 
         vim.api.nvim_set_keymap(
           'n',
           keymap,
           string.format([[<cmd>%s<CR>]], cmd_name),
-          vim.tbl_extend('force', map_opts, { desc = 'OpenCode: ' .. capitalized_name })
+          vim.tbl_extend('force', map_opts, { desc = 'Opencode: ' .. capitalized_name })
         )
       end
     end
@@ -56,37 +69,24 @@ function M.register_keymaps(opencode, config)
   vim.defer_fn(function()
     local status_ok, which_key = pcall(require, 'which-key')
     if status_ok then
-      if config.keymaps.toggle.normal then
-        which_key.add {
-          mode = 'n',
-          { config.keymaps.toggle.normal, desc = 'OpenCode: Toggle', icon = '🤖' },
-        }
-      end
+      -- Register normal mode mappings
+      which_key.add {
+        mode = 'n',
+        { '<leader>a', desc = 'Opencode: Toggle', icon = '🤖' },
+        { '<leader>A', desc = 'Opencode: New Session', icon = '🔄' },
+      }
+      
+      -- Register visual mode mapping explicitly with icon
+      which_key.add {
+        mode = 'v',
+        { '<leader>a', desc = 'Opencode: Add to Context', icon = '🤖' },
+      }
+
       if config.keymaps.toggle.terminal then
         which_key.add {
           mode = 't',
-          { config.keymaps.toggle.terminal, desc = 'OpenCode: Toggle', icon = '🤖' },
+          { config.keymaps.toggle.terminal, desc = 'Opencode: Toggle', icon = '🤖' },
         }
-      end
-
-      -- Register variant keymaps with which-key
-      if config.keymaps.toggle.variants then
-        for variant_name, keymap in pairs(config.keymaps.toggle.variants) do
-          if keymap then
-            local capitalized_name = variant_name:gsub('^%l', string.upper)
-            which_key.add {
-              mode = 'n',
-              { keymap, desc = 'OpenCode: ' .. capitalized_name, icon = '🤖' },
-            }
-          end
-        end
-      end
-
-      -- Register group name if using leader+a
-      if config.keymaps.toggle.normal and config.keymaps.toggle.normal:match('^<leader>a') then
-         which_key.add {
-           { "<leader>a", group = "AI (OpenCode)", icon = "🤖" },
-         }
       end
     end
   end, 100)
@@ -96,12 +96,12 @@ end
 --- @param opencode table The main plugin module
 --- @param config table The plugin configuration
 function M.setup_terminal_navigation(opencode, config)
-  -- Get current active OpenCode instance buffer
+  -- Get current active Opencode instance buffer
   local current_instance = opencode.opencode.current_instance
   local buf = current_instance and opencode.opencode.instances[current_instance]
   if buf and vim.api.nvim_buf_is_valid(buf) then
     -- Create autocommand to enter insert mode when the terminal window gets focus
-    local augroup = vim.api.nvim_create_augroup('OpenCodeTerminalFocus_' .. buf, { clear = true })
+    local augroup = vim.api.nvim_create_augroup('OpencodeTerminalFocus_' .. buf, { clear = true })
 
     -- Set up multiple events for more reliable focus detection
     vim.api.nvim_create_autocmd(
@@ -111,8 +111,17 @@ function M.setup_terminal_navigation(opencode, config)
         callback = function()
           vim.schedule(opencode.force_insert_mode)
         end,
-        desc = 'Auto-enter insert mode when focusing OpenCode terminal',
+        desc = 'Auto-enter insert mode when focusing Opencode terminal',
       }
+    )
+
+    -- Add double Esc to exit terminal mode
+    vim.api.nvim_buf_set_keymap(
+      buf,
+      't',
+      '<Esc><Esc>',
+      [[<C-\><C-n>]],
+      { noremap = true, silent = true, desc = 'Exit terminal mode' }
     )
 
     -- Window navigation keymaps

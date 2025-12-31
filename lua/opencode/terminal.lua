@@ -7,9 +7,9 @@
 local M = {}
 
 --- Terminal buffer and window management
--- @table OpenCodeTerminal
+-- @table OpencodeTerminal
 -- @field instances table Key-value store of git root to buffer number
--- @field saved_updatetime number|nil Original updatetime before OpenCode was opened
+-- @field saved_updatetime number|nil Original updatetime before Opencode was opened
 -- @field current_instance string|nil Current git root path for active instance
 M.terminal = {
   instances = {},
@@ -65,7 +65,7 @@ local function calculate_float_position(value, window_size, max_value)
   return math.max(0, math.min(pos, max_value - window_size))
 end
 
---- Create a floating window for OpenCode
+--- Create a floating window for Opencode
 --- @param config table Plugin configuration containing window settings
 --- @param existing_bufnr number|nil Buffer number of existing buffer to show in the float (optional)
 --- @return number Window ID of the created floating window
@@ -100,15 +100,18 @@ local function create_float(config, existing_bufnr)
   local bufnr = existing_bufnr
   if not bufnr then
     bufnr = vim.api.nvim_create_buf(false, true) -- unlisted, scratch
+    vim.api.nvim_set_option_value('buflisted', false, { buf = bufnr })
   else
     -- Validate existing buffer is still valid and a terminal
     if not vim.api.nvim_buf_is_valid(bufnr) then
       bufnr = vim.api.nvim_create_buf(false, true) -- unlisted, scratch
+      vim.api.nvim_set_option_value('buflisted', false, { buf = bufnr })
     else
       local buftype = vim.api.nvim_get_option_value('buftype', {buf = bufnr})
       if buftype ~= 'terminal' then
         -- Buffer exists but is no longer a terminal, create a new one
         bufnr = vim.api.nvim_create_buf(false, true) -- unlisted, scratch
+        vim.api.nvim_set_option_value('buflisted', false, { buf = bufnr })
       end
     end
   end
@@ -124,28 +127,37 @@ end
 --- @return string Command with git root directory change if applicable
 --- @private
 local function build_command_with_git_root(config, git, base_cmd)
+  local target_dir = vim.fn.getcwd()
+  
   if config.git and config.git.use_git_root then
     local git_root = git.get_git_root()
     if git_root then
-      local quoted_root = vim.fn.shellescape(git_root)
-      -- Use configurable shell commands
-      local separator = config.shell.separator
-      local pushd_cmd = config.shell.pushd_cmd
-      local popd_cmd = config.shell.popd_cmd
-      return pushd_cmd
-        .. ' '
-        .. quoted_root
-        .. ' '
-        .. separator
-        .. ' '
-        .. base_cmd
-        .. ' '
-        .. separator
-        .. ' '
-        .. popd_cmd
+      target_dir = git_root
     end
   end
-  return base_cmd
+
+  local quoted_dir = vim.fn.shellescape(target_dir)
+  -- Use configurable shell commands
+  local separator = config.shell.separator
+  local pushd_cmd = config.shell.pushd_cmd
+  local popd_cmd = config.shell.popd_cmd
+  
+  -- Explicitly pass path as positional argument to overwrite any sticky session behavior
+  -- We assume base_cmd (e.g. 'opencode') accepts project path as argument
+  -- If base_cmd already has args, we append directory
+  local cmd_with_cwd = base_cmd .. ' ' .. quoted_dir
+
+  return pushd_cmd
+    .. ' '
+    .. quoted_dir
+    .. ' '
+    .. separator
+    .. ' '
+    .. cmd_with_cwd
+    .. ' '
+    .. separator
+    .. ' '
+    .. popd_cmd
 end
 
 --- Configure common window options
@@ -212,13 +224,13 @@ local function create_split(position, config, existing_bufnr)
   end
 end
 
---- Set up function to force insert mode when entering the OpenCode window
+--- Set up function to force insert mode when entering the Opencode window
 --- @param opencode table The main plugin module
 --- @param config table The plugin configuration
 function M.force_insert_mode(opencode, config)
   local current_bufnr = vim.fn.bufnr('%')
 
-  -- Check if current buffer is any of our OpenCode instances
+  -- Check if current buffer is any of our Opencode instances
   local is_opencode_instance = false
   for _, bufnr in pairs(opencode.opencode.instances) do
     if bufnr and bufnr == current_bufnr and vim.api.nvim_buf_is_valid(bufnr) then
@@ -286,34 +298,35 @@ local function is_valid_terminal_buffer(bufnr)
     and vim.fn.jobwait({ terminal_job_id }, 0)[1] == -1
 end
 
---- Handle existing instance (toggle visibility)
+--- Open an existing instance buffer in a window
 --- @param bufnr number Buffer number
 --- @param config table Plugin configuration
 --- @private
-local function handle_existing_instance(bufnr, config)
-  local win_ids = vim.fn.win_findbuf(bufnr)
-  if #win_ids > 0 then
-    -- OpenCode is visible, close the window
-    for _, win_id in ipairs(win_ids) do
-      vim.api.nvim_win_close(win_id, true)
-    end
+local function open_instance(bufnr, config)
+  if config.window.position == 'float' then
+    create_float(config, bufnr)
   else
-    -- OpenCode buffer exists but is not visible, open it in a split or float
-    if config.window.position == 'float' then
-      create_float(config, bufnr)
-    else
-      create_split(config.window.position, config, bufnr)
-    end
-    -- Force insert mode more aggressively unless configured to start in normal mode
-    if not config.window.start_in_normal_mode then
-      vim.schedule(function()
-        vim.cmd 'stopinsert | startinsert'
-      end)
-    end
+    create_split(config.window.position, config, bufnr)
+  end
+  -- Force insert mode more aggressively unless configured to start in normal mode
+  if not config.window.start_in_normal_mode then
+    vim.schedule(function()
+      vim.cmd 'stopinsert | startinsert'
+    end)
   end
 end
 
---- Create new OpenCode instance
+--- Close existing instance windows
+--- @param bufnr number Buffer number
+--- @private
+local function close_instance(bufnr)
+  local win_ids = vim.fn.win_findbuf(bufnr)
+  for _, win_id in ipairs(win_ids) do
+    vim.api.nvim_win_close(win_id, true)
+  end
+end
+
+--- Create new Opencode instance
 --- @param opencode table The main plugin module
 --- @param config table Plugin configuration
 --- @param git table Git module
@@ -324,6 +337,7 @@ local function create_new_instance(opencode, config, git, instance_id)
     -- For floating window, create buffer first with terminal
     local new_bufnr = vim.api.nvim_create_buf(false, true) -- unlisted, scratch
     vim.api.nvim_set_option_value('bufhidden', 'hide', {buf = new_bufnr})
+    vim.api.nvim_set_option_value('buflisted', false, {buf = new_bufnr})
 
     -- Create the floating window
     local win_id = create_float(config, new_bufnr)
@@ -361,6 +375,7 @@ local function create_new_instance(opencode, config, git, instance_id)
 
     vim.cmd(cmd)
     vim.cmd 'setlocal bufhidden=hide'
+    vim.cmd 'setlocal nobuflisted'
 
     -- Create a unique buffer name
     local buffer_name = generate_buffer_name(instance_id, config)
@@ -380,7 +395,43 @@ local function create_new_instance(opencode, config, git, instance_id)
   end
 end
 
---- Toggle the OpenCode terminal window
+--- Ensure the Opencode terminal window is open and focused
+--- @param opencode table The main plugin module
+--- @param config table The plugin configuration
+--- @param git table The git module
+function M.show(opencode, config, git)
+  -- Determine instance ID based on config
+  local instance_id = get_instance_id(config, git)
+  opencode.opencode.current_instance = instance_id
+
+  -- Check if this Opencode instance is already running
+  local bufnr = opencode.opencode.instances[instance_id]
+
+  -- Validate existing buffer
+  if bufnr and not is_valid_terminal_buffer(bufnr) then
+    opencode.opencode.instances[instance_id] = nil
+    bufnr = nil
+  end
+
+  if bufnr and vim.api.nvim_buf_is_valid(bufnr) then
+    local win_ids = vim.fn.win_findbuf(bufnr)
+    if #win_ids > 0 then
+      -- Already visible, focus the first window
+      vim.api.nvim_set_current_win(win_ids[1])
+      if not config.window.start_in_normal_mode then
+        vim.cmd 'startinsert'
+      end
+    else
+      -- Exists but hidden, open it
+      open_instance(bufnr, config)
+    end
+  else
+    -- Create new instance
+    create_new_instance(opencode, config, git, instance_id)
+  end
+end
+
+--- Toggle the Opencode terminal window
 --- @param opencode table The main plugin module
 --- @param config table The plugin configuration
 --- @param git table The git module
@@ -389,7 +440,7 @@ function M.toggle(opencode, config, git)
   local instance_id = get_instance_id(config, git)
   opencode.opencode.current_instance = instance_id
 
-  -- Check if this OpenCode instance is already running
+  -- Check if this Opencode instance is already running
   local bufnr = opencode.opencode.instances[instance_id]
 
   -- Validate existing buffer
@@ -400,8 +451,14 @@ function M.toggle(opencode, config, git)
   end
 
   if bufnr and vim.api.nvim_buf_is_valid(bufnr) then
-    -- Handle existing instance (toggle visibility)
-    handle_existing_instance(bufnr, config)
+    local win_ids = vim.fn.win_findbuf(bufnr)
+    if #win_ids > 0 then
+      -- Opencode is visible, close the window
+      close_instance(bufnr)
+    else
+      -- Opencode buffer exists but is not visible, open it
+      open_instance(bufnr, config)
+    end
   else
     -- Prune invalid buffer entries
     if bufnr and not vim.api.nvim_buf_is_valid(bufnr) then
@@ -410,6 +467,26 @@ function M.toggle(opencode, config, git)
     -- Create new instance
     create_new_instance(opencode, config, git, instance_id)
   end
+end
+
+--- Restart the Opencode session (delete buffer and start new)
+--- @param opencode table The main plugin module
+--- @param config table The plugin configuration
+--- @param git table The git module
+function M.restart(opencode, config, git)
+  local instance_id = get_instance_id(config, git)
+  local bufnr = opencode.opencode.instances[instance_id]
+
+  if bufnr and vim.api.nvim_buf_is_valid(bufnr) then
+    -- Close windows first
+    close_instance(bufnr)
+    -- Delete buffer
+    vim.api.nvim_buf_delete(bufnr, { force = true })
+    opencode.opencode.instances[instance_id] = nil
+  end
+
+  -- Start new
+  M.toggle(opencode, config, git)
 end
 
 return M

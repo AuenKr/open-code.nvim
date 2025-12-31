@@ -1,4 +1,4 @@
--- Tests for core integration in OpenCode
+-- Tests for core integration in Opencode
 local assert = require('luassert')
 local describe = require('plenary.busted').describe
 local it = require('plenary.busted').it
@@ -124,7 +124,7 @@ describe('core integration', function()
   
   describe('setup', function()
     it('should return a plugin object with expected methods', function()
-      assert.is_not_nil(opencode, "OpenCode plugin should not be nil")
+      assert.is_not_nil(opencode, "Opencode plugin should not be nil")
       assert.is_function(opencode.setup, "Should have a setup function")
       assert.is_function(opencode.toggle, "Should have a toggle function")
       assert.is_not_nil(opencode.version, "Should have a version")

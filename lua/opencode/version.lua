@@ -4,7 +4,7 @@
 ---@brief ]]
 
 --- @table M
---- Version information for OpenCode
+--- Version information for Opencode
 --- @field major number Major version (breaking changes)
 --- @field minor number Minor version (new features)
 --- @field patch number Patch version (bug fixes)
@@ -28,7 +28,7 @@ end
 
 --- Prints the current version of the plugin
 function M.print_version()
-  vim.notify('OpenCode version: ' .. M.string(), vim.log.levels.INFO)
+  vim.notify('Opencode version: ' .. M.string(), vim.log.levels.INFO)
 end
 
 return M
