@@ -4,7 +4,7 @@ This document outlines the various ways you can get help with OpenCode.
 
 ## GitHub Discussions
 
-For general questions, ideas, or community discussions, please use [GitHub Discussions](https://github.com/greggh/opencode/discussions).
+For general questions, ideas, or community discussions, please use [GitHub Discussions](https://github.com/AuenKr/open-code.nvim/discussions).
 
 Categories:
 
@@ -15,7 +15,7 @@ Categories:
 
 ## Issue Tracker
 
-For reporting bugs or requesting features, please use the [GitHub issue tracker](https://github.com/greggh/opencode/issues).
+For reporting bugs or requesting features, please use the [GitHub issue tracker](https://github.com/AuenKr/open-code.nvim/issues).
 
 Before creating a new issue:
 
