@@ -81,6 +81,13 @@ function M.register_keymaps(opencode, config)
           end
         end
       end
+
+      -- Register group name if using leader+a
+      if config.keymaps.toggle.normal and config.keymaps.toggle.normal:match('^<leader>a') then
+         which_key.add {
+           { "<leader>a", group = "AI (OpenCode)", icon = "🤖" },
+         }
+      end
     end
   end, 100)
 end

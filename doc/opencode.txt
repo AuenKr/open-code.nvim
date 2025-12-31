@@ -132,11 +132,11 @@ default configuration:
     -- Keymaps
     keymaps = {
       toggle = {
-        normal = "<C-,>",       -- Normal mode keymap for toggling OpenCode
-        terminal = "<C-,>",     -- Terminal mode keymap for toggling OpenCode
+        normal = "<leader>ac",  -- Normal mode keymap for toggling OpenCode
+        terminal = "<C-o>",     -- Terminal mode keymap for toggling OpenCode
         variants = {
-          continue = "<leader>cC", -- Normal mode keymap for OpenCode with continue flag
-          verbose = "<leader>cV",  -- Normal mode keymap for OpenCode with verbose flag
+          continue = "<leader>aC", -- Normal mode keymap for OpenCode with continue flag
+          verbose = "<leader>aV",  -- Normal mode keymap for OpenCode with verbose flag
         },
       }
     }
@@ -167,12 +167,13 @@ Note: Commands are automatically generated for each entry in your command_varian
 
 Default key mappings:
 
-  <C-,>        Toggle OpenCode terminal window (both normal and terminal modes)
+  <leader>ac   Toggle OpenCode terminal window (normal mode)
+  <C-o>        Toggle OpenCode terminal window (terminal mode)
   
 Variant mode mappings (if configured):
 
-  <leader>cC   Toggle OpenCode with --continue flag
-  <leader>cV   Toggle OpenCode with --verbose flag
+  <leader>aC   Toggle OpenCode with --continue flag
+  <leader>aV   Toggle OpenCode with --verbose flag
 
 Additionally, when in the OpenCode terminal:
 

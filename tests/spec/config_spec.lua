@@ -22,7 +22,7 @@ describe('config', function()
       assert.are.equal(0.5, result.window.split_ratio)
 
       -- Other values should be set to defaults
-      assert.are.equal('botright', result.window.position)
+      assert.are.equal('vertical', result.window.position)
       assert.are.equal(true, result.window.enter_insert)
     end)
 

@@ -75,9 +75,9 @@ local M = {}
 M.default_config = {
   -- Terminal window settings
   window = {
-    split_ratio = 0.3, -- Percentage of screen for the terminal window (height or width)
+    split_ratio = 0.4, -- Percentage of screen for the terminal window (height or width)
     height_ratio = 0.3, -- DEPRECATED: Use split_ratio instead
-    position = 'botright', -- Position of the window: "botright", "topleft", "vertical", "float", etc.
+    position = 'vertical', -- Position of the window: "botright", "topleft", "vertical", "float", etc.
     enter_insert = true, -- Whether to enter insert mode when opening OpenCode
     start_in_normal_mode = false, -- Whether to start in normal mode instead of insert mode
     hide_numbers = true, -- Hide line numbers in the terminal window
@@ -124,11 +124,11 @@ M.default_config = {
   -- Keymaps
   keymaps = {
     toggle = {
-      normal = '<C-,>', -- Normal mode keymap for toggling OpenCode
-      terminal = '<C-,>', -- Terminal mode keymap for toggling OpenCode
+      normal = '<leader>ac', -- Normal mode keymap for toggling OpenCode
+      terminal = '<C-o>', -- Terminal mode keymap for toggling OpenCode
       variants = {
-        continue = '<leader>cC', -- Normal mode keymap for OpenCode with continue flag
-        verbose = '<leader>cV', -- Normal mode keymap for OpenCode with verbose flag
+        continue = '<leader>aC', -- Normal mode keymap for OpenCode with continue flag
+        verbose = '<leader>aV', -- Normal mode keymap for OpenCode with verbose flag
       },
     },
     window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)

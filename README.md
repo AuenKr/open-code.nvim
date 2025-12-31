@@ -191,12 +191,12 @@ Note: Commands are automatically generated for each entry in your `command_varia
 Default key mappings:
 
 - `<leader>ac` - Toggle OpenCode terminal window (normal mode)
-- `<C-,>` - Toggle OpenCode terminal window (both normal and terminal modes)
+- `<C-o>` - Toggle OpenCode terminal window (terminal mode)
 
 Variant mode mappings (if configured):
 
-- `<leader>cC` - Toggle OpenCode with --continue flag
-- `<leader>cV` - Toggle OpenCode with --verbose flag
+- `<leader>aC` - Toggle OpenCode with --continue flag
+- `<leader>aV` - Toggle OpenCode with --verbose flag
 
 Additionally, when in the OpenCode terminal:
 

@@ -46,7 +46,7 @@ mock_modules['opencode.git'] = {
 mock_modules['opencode.config'] = {
   default_config = {
     window = {
-      position = 'botright',
+      position = 'vertical',
       height_ratio = 0.5,
       enter_insert = true,
       hide_numbers = true,
@@ -159,7 +159,7 @@ describe('core integration', function()
       assert.are.equal('<leader>cc', merged_config.keymaps.toggle.normal, "User keymaps should override default")
       
       -- Default values should still be present for unspecified options
-      assert.are.equal('botright', merged_config.window.position, "Default position should be preserved")
+      assert.are.equal('vertical', merged_config.window.position, "Default position should be preserved")
       assert.are.equal(true, merged_config.refresh.enable, "Default refresh.enable should be preserved")
     end)
   end)
