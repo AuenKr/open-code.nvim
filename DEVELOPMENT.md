@@ -136,7 +136,7 @@ luarocks install luacheck
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/greggh/opencode.nvim.git
+   git clone https://github.com/AuenKr/open-code.nvim.git
    ```
 
 2. Install Git hooks:

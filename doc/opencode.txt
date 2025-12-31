@@ -33,7 +33,7 @@ Install using your favorite plugin manager:
 Using lazy.nvim:
 >lua
   return {
-    "greggh/opencode.nvim",
+    "AuenKr/open-code.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim", -- Required for git operations
     },
@@ -46,7 +46,7 @@ Using lazy.nvim:
 Using vim-plug:
 >vim
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'greggh/opencode.nvim'
+  Plug 'AuenKr/open-code.nvim'
   " After installing, add this to your init.vim:
   " lua require('opencode').setup()
 <
@@ -54,7 +54,7 @@ Using vim-plug:
 Using packer.nvim:
 >lua
   use {
-    'greggh/opencode.nvim',
+    'AuenKr/open-code.nvim',
     requires = {
       'nvim-lua/plenary.nvim', -- Required for git operations
     },
@@ -193,7 +193,7 @@ You can customize these mappings in the configuration.
 
 Contributions to OpenCode are welcome! If you would like to contribute,
 please check the CONTRIBUTING.md file in the repository for guidelines:
-https://github.com/greggh/opencode.nvim/blob/main/CONTRIBUTING.md
+https://github.com/AuenKr/open-code.nvim/blob/main/CONTRIBUTING.md
 
 ==============================================================================
 8. LICENSE                                                  *opencode-license*
