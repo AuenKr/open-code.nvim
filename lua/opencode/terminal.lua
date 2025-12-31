@@ -1,15 +1,15 @@
----@mod claude-code.terminal Terminal management for claude-code.nvim
+---@mod opencode.terminal Terminal management for opencode.nvim
 ---@brief [[
---- This module provides terminal buffer management for claude-code.nvim.
+--- This module provides terminal buffer management for opencode.nvim.
 --- It handles creating, toggling, and managing the terminal window.
 ---@brief ]]
 
 local M = {}
 
 --- Terminal buffer and window management
--- @table ClaudeCodeTerminal
+-- @table OpenCodeTerminal
 -- @field instances table Key-value store of git root to buffer number
--- @field saved_updatetime number|nil Original updatetime before Claude Code was opened
+-- @field saved_updatetime number|nil Original updatetime before OpenCode was opened
 -- @field current_instance string|nil Current git root path for active instance
 M.terminal = {
   instances = {},
@@ -65,7 +65,7 @@ local function calculate_float_position(value, window_size, max_value)
   return math.max(0, math.min(pos, max_value - window_size))
 end
 
---- Create a floating window for Claude Code
+--- Create a floating window for OpenCode
 --- @param config table Plugin configuration containing window settings
 --- @param existing_bufnr number|nil Buffer number of existing buffer to show in the float (optional)
 --- @return number Window ID of the created floating window
@@ -170,9 +170,9 @@ end
 --- @private
 local function generate_buffer_name(instance_id, config)
   if config.git.multi_instance then
-    return 'claude-code-' .. instance_id:gsub('[^%w%-_]', '-')
+    return 'opencode-' .. instance_id:gsub('[^%w%-_]', '-')
   else
-    return 'claude-code'
+    return 'opencode'
   end
 end
 
@@ -212,22 +212,22 @@ local function create_split(position, config, existing_bufnr)
   end
 end
 
---- Set up function to force insert mode when entering the Claude Code window
---- @param claude_code table The main plugin module
+--- Set up function to force insert mode when entering the OpenCode window
+--- @param opencode table The main plugin module
 --- @param config table The plugin configuration
-function M.force_insert_mode(claude_code, config)
+function M.force_insert_mode(opencode, config)
   local current_bufnr = vim.fn.bufnr('%')
 
-  -- Check if current buffer is any of our Claude instances
-  local is_claude_instance = false
-  for _, bufnr in pairs(claude_code.claude_code.instances) do
+  -- Check if current buffer is any of our OpenCode instances
+  local is_opencode_instance = false
+  for _, bufnr in pairs(opencode.opencode.instances) do
     if bufnr and bufnr == current_bufnr and vim.api.nvim_buf_is_valid(bufnr) then
-      is_claude_instance = true
+      is_opencode_instance = true
       break
     end
   end
 
-  if is_claude_instance then
+  if is_opencode_instance then
     -- Only enter insert mode if we're in the terminal buffer and not already in insert mode
     -- and not configured to stay in normal mode
     if config.window.start_in_normal_mode then
@@ -293,12 +293,12 @@ end
 local function handle_existing_instance(bufnr, config)
   local win_ids = vim.fn.win_findbuf(bufnr)
   if #win_ids > 0 then
-    -- Claude Code is visible, close the window
+    -- OpenCode is visible, close the window
     for _, win_id in ipairs(win_ids) do
       vim.api.nvim_win_close(win_id, true)
     end
   else
-    -- Claude Code buffer exists but is not visible, open it in a split or float
+    -- OpenCode buffer exists but is not visible, open it in a split or float
     if config.window.position == 'float' then
       create_float(config, bufnr)
     else
@@ -313,13 +313,13 @@ local function handle_existing_instance(bufnr, config)
   end
 end
 
---- Create new Claude Code instance
---- @param claude_code table The main plugin module
+--- Create new OpenCode instance
+--- @param opencode table The main plugin module
 --- @param config table Plugin configuration
 --- @param git table Git module
 --- @param instance_id string Instance identifier
 --- @private
-local function create_new_instance(claude_code, config, git, instance_id)
+local function create_new_instance(opencode, config, git, instance_id)
   if config.window.position == 'float' then
     -- For floating window, create buffer first with terminal
     local new_bufnr = vim.api.nvim_create_buf(false, true) -- unlisted, scratch
@@ -345,7 +345,7 @@ local function create_new_instance(claude_code, config, git, instance_id)
     configure_window_options(win_id, config)
 
     -- Store buffer number for this instance
-    claude_code.claude_code.instances[instance_id] = new_bufnr
+    opencode.opencode.instances[instance_id] = new_bufnr
 
     -- Enter insert mode if configured
     if config.window.enter_insert and not config.window.start_in_normal_mode then
@@ -371,7 +371,7 @@ local function create_new_instance(claude_code, config, git, instance_id)
     configure_window_options(current_win, config)
 
     -- Store buffer number for this instance
-    claude_code.claude_code.instances[instance_id] = vim.fn.bufnr('%')
+    opencode.opencode.instances[instance_id] = vim.fn.bufnr('%')
 
     -- Automatically enter insert mode in terminal unless configured to start in normal mode
     if config.window.enter_insert and not config.window.start_in_normal_mode then
@@ -380,22 +380,22 @@ local function create_new_instance(claude_code, config, git, instance_id)
   end
 end
 
---- Toggle the Claude Code terminal window
---- @param claude_code table The main plugin module
+--- Toggle the OpenCode terminal window
+--- @param opencode table The main plugin module
 --- @param config table The plugin configuration
 --- @param git table The git module
-function M.toggle(claude_code, config, git)
+function M.toggle(opencode, config, git)
   -- Determine instance ID based on config
   local instance_id = get_instance_id(config, git)
-  claude_code.claude_code.current_instance = instance_id
+  opencode.opencode.current_instance = instance_id
 
-  -- Check if this Claude Code instance is already running
-  local bufnr = claude_code.claude_code.instances[instance_id]
+  -- Check if this OpenCode instance is already running
+  local bufnr = opencode.opencode.instances[instance_id]
 
   -- Validate existing buffer
   if bufnr and not is_valid_terminal_buffer(bufnr) then
     -- Buffer is no longer a valid terminal, reset
-    claude_code.claude_code.instances[instance_id] = nil
+    opencode.opencode.instances[instance_id] = nil
     bufnr = nil
   end
 
@@ -405,10 +405,10 @@ function M.toggle(claude_code, config, git)
   else
     -- Prune invalid buffer entries
     if bufnr and not vim.api.nvim_buf_is_valid(bufnr) then
-      claude_code.claude_code.instances[instance_id] = nil
+      opencode.opencode.instances[instance_id] = nil
     end
     -- Create new instance
-    create_new_instance(claude_code, config, git, instance_id)
+    create_new_instance(opencode, config, git, instance_id)
   end
 end
 

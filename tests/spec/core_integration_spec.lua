@@ -1,4 +1,4 @@
--- Tests for core integration in Claude Code
+-- Tests for core integration in OpenCode
 local assert = require('luassert')
 local describe = require('plenary.busted').describe
 local it = require('plenary.busted').it
@@ -7,7 +7,7 @@ local it = require('plenary.busted').it
 local mock_modules = {}
 
 -- Mock the version module
-mock_modules['claude-code.version'] = {
+mock_modules['opencode.version'] = {
   string = function() return '0.3.0' end,
   major = 0,
   minor = 3,
@@ -16,34 +16,34 @@ mock_modules['claude-code.version'] = {
 }
 
 -- Mock the terminal module
-mock_modules['claude-code.terminal'] = {
+mock_modules['opencode.terminal'] = {
   toggle = function() return true end,
   force_insert_mode = function() end
 }
 
 -- Mock the file_refresh module
-mock_modules['claude-code.file_refresh'] = {
+mock_modules['opencode.file_refresh'] = {
   setup = function() return true end,
   cleanup = function() return true end
 }
 
 -- Mock the commands module
-mock_modules['claude-code.commands'] = {
+mock_modules['opencode.commands'] = {
   register_commands = function() return true end
 }
 
 -- Mock the keymaps module
-mock_modules['claude-code.keymaps'] = {
+mock_modules['opencode.keymaps'] = {
   setup_keymaps = function() return true end
 }
 
 -- Mock the git module
-mock_modules['claude-code.git'] = {
+mock_modules['opencode.git'] = {
   get_git_root = function() return '/test/git/root' end
 }
 
 -- Mock the config module
-mock_modules['claude-code.config'] = {
+mock_modules['opencode.config'] = {
   default_config = {
     window = {
       position = 'botright',
@@ -71,9 +71,9 @@ mock_modules['claude-code.config'] = {
   },
   parse_config = function(user_config)
     if not user_config then
-      return mock_modules['claude-code.config'].default_config
+      return mock_modules['opencode.config'].default_config
     end
-    return vim.tbl_deep_extend('force', mock_modules['claude-code.config'].default_config, user_config)
+    return vim.tbl_deep_extend('force', mock_modules['opencode.config'].default_config, user_config)
   end
 }
 
@@ -87,7 +87,7 @@ _G.require = function(module_name)
 end
 
 -- Now load the plugin
-local claude_code = require('claude-code')
+local opencode = require('opencode')
 
 -- Restore original require
 _G.require = original_require
@@ -118,16 +118,16 @@ describe('core integration', function()
     test_plugin = {
       toggle = function() return true end,
       version = function() return '0.3.0' end,
-      config = mock_modules['claude-code.config'].default_config
+      config = mock_modules['opencode.config'].default_config
     }
   end)
   
   describe('setup', function()
     it('should return a plugin object with expected methods', function()
-      assert.is_not_nil(claude_code, "Claude Code plugin should not be nil")
-      assert.is_function(claude_code.setup, "Should have a setup function")
-      assert.is_function(claude_code.toggle, "Should have a toggle function")
-      assert.is_not_nil(claude_code.version, "Should have a version")
+      assert.is_not_nil(opencode, "OpenCode plugin should not be nil")
+      assert.is_function(opencode.setup, "Should have a setup function")
+      assert.is_function(opencode.toggle, "Should have a toggle function")
+      assert.is_not_nil(opencode.version, "Should have a version")
     end)
     
     it('should initialize with default config when no user config is provided', function()
@@ -152,7 +152,7 @@ describe('core integration', function()
       }
       
       -- Use the parse_config function from the mock
-      local merged_config = mock_modules['claude-code.config'].parse_config(user_config)
+      local merged_config = mock_modules['opencode.config'].parse_config(user_config)
       
       -- Check that user config was merged correctly
       assert.are.equal(0.7, merged_config.window.height_ratio, "User height_ratio should override default")

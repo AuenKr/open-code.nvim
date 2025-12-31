@@ -96,39 +96,39 @@ jobs:
           name: neovim-version
           path: neovim_version.md
 
-  check-claude-changes:
+  check-opencode-changes:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check for Claude CLI updates
+      - name: Check for OpenCode CLI updates
         run: |
-          echo "# Claude CLI Updates" > claude_updates.md
-          echo "" >> claude_updates.md
-          echo "## Latest Claude CLI Changes" >> claude_updates.md
-          echo "" >> claude_updates.md
+          echo "# OpenCode CLI Updates" > opencode_updates.md
+          echo "" >> opencode_updates.md
+          echo "## Latest OpenCode CLI Changes" >> opencode_updates.md
+          echo "" >> opencode_updates.md
           
-          LATEST_ANTHROPIC_DOCS=$(curl -s "https://docs.anthropic.com/claude/changelog" | grep -oP '<h2 id="[^"]+">.*?<\/h2>' | head -1 | sed 's/<h2 id="[^"]*">//g' | sed 's/<\/h2>//g')
+          LATEST_ANTHROPIC_DOCS=$(curl -s "https://docs.anthropic.com/opencode/changelog" | grep -oP '<h2 id="[^"]+">.*?<\/h2>' | head -1 | sed 's/<h2 id="[^"]*">//g' | sed 's/<\/h2>//g')
           
           if [ -n "$LATEST_ANTHROPIC_DOCS" ]; then
-            echo "Latest Claude documentation update: $LATEST_ANTHROPIC_DOCS" >> claude_updates.md
+            echo "Latest OpenCode documentation update: $LATEST_ANTHROPIC_DOCS" >> opencode_updates.md
           else
-            echo "Could not detect latest Claude documentation update" >> claude_updates.md
+            echo "Could not detect latest OpenCode documentation update" >> opencode_updates.md
           fi
           
-          echo "" >> claude_updates.md
-          echo "Check the [Claude CLI Documentation](https://docs.anthropic.com/claude/docs/claude-cli) for the latest Claude CLI features." >> claude_updates.md
-          echo "" >> claude_updates.md
-          echo "Periodically check for changes to the Claude CLI that may affect this plugin's functionality." >> claude_updates.md
+          echo "" >> opencode_updates.md
+          echo "Check the [OpenCode CLI Documentation](https://docs.anthropic.com/opencode/docs/opencode-cli) for the latest OpenCode CLI features." >> opencode_updates.md
+          echo "" >> opencode_updates.md
+          echo "Periodically check for changes to the OpenCode CLI that may affect this plugin's functionality." >> opencode_updates.md
           
-      - name: Upload Claude Updates Report
+      - name: Upload OpenCode Updates Report
         uses: actions/upload-artifact@v4
         with:
-          name: claude-updates
-          path: claude_updates.md
+          name: opencode-updates
+          path: opencode_updates.md
 
   create-update-issue:
-    needs: [check-github-actions, check-neovim-version, check-claude-changes]
+    needs: [check-github-actions, check-neovim-version, check-opencode-changes]
     if: github.event_name == 'schedule' # Only create issues on scheduled runs
     runs-on: ubuntu-latest
     steps:
@@ -144,16 +144,16 @@ jobs:
         with:
           name: actions-updates
           
-      - name: Download Claude updates report
+      - name: Download OpenCode updates report
         uses: actions/download-artifact@v4
         with:
-          name: claude-updates
+          name: opencode-updates
       
       - name: Combine reports
         run: |
           echo "# Weekly Dependency Update Report" > combined_report.md
           echo "" >> combined_report.md
-          echo "This automated report checks for updates to dependencies used in Claude Code." >> combined_report.md
+          echo "This automated report checks for updates to dependencies used in OpenCode." >> combined_report.md
           echo "" >> combined_report.md
           
           # Add Neovim version info
@@ -164,8 +164,8 @@ jobs:
           cat actions_updates.md >> combined_report.md
           echo "" >> combined_report.md
           
-          # Add Claude updates info
-          cat claude_updates.md >> combined_report.md
+          # Add OpenCode updates info
+          cat opencode_updates.md >> combined_report.md
 
       - name: Create Issue for Updates
         uses: peter-evans/create-issue-from-file@v5

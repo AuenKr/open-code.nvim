@@ -38,10 +38,19 @@ fi
 # Run tests with minimal Neovim configuration and add a timeout
 # Timeout after 60 seconds to prevent hanging in CI
 echo "Running tests with a 60 second timeout..."
-timeout --foreground 60 $NVIM --headless --noplugin -u tests/minimal-init.lua -c "luafile tests/run_tests.lua"
+if command -v timeout &> /dev/null; then
+  timeout 60 $NVIM --headless --noplugin -u tests/minimal-init.lua -c "luafile tests/run_tests.lua"
+  EXIT_CODE=$?
+elif command -v gtimeout &> /dev/null; then
+  gtimeout 60 $NVIM --headless --noplugin -u tests/minimal-init.lua -c "luafile tests/run_tests.lua"
+  EXIT_CODE=$?
+else
+  echo "Warning: timeout command not found, running without timeout"
+  $NVIM --headless --noplugin -u tests/minimal-init.lua -c "luafile tests/run_tests.lua"
+  EXIT_CODE=$?
+fi
 
 # Check exit code
-EXIT_CODE=$?
 if [ $EXIT_CODE -eq 124 ]; then
   echo "Error: Test execution timed out after 60 seconds"
   exit 1

@@ -1,4 +1,4 @@
--- Luacheckrc for Claude Code plugin
+-- Luacheckrc for OpenCode Code plugin
 
 std = {
   globals = {
@@ -87,6 +87,6 @@ max_line_length = 120
 max_cyclomatic_complexity = 20
 
 -- Override settings for specific files
-files["lua/claude-code/config.lua"] = {
+files["lua/opencode/config.lua"] = {
   max_cyclomatic_complexity = 30, -- The validate_config function has high complexity due to many validation checks
 }

@@ -1,6 +1,6 @@
-# Claude Code Automated Tests
+# OpenCode Code Automated Tests
 
-This directory contains the automated test setup for Claude Code plugin.
+This directory contains the automated test setup for OpenCode Code plugin.
 
 ## Test Structure
 

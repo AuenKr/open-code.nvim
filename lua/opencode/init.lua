@@ -1,29 +1,29 @@
----@mod claude-code Claude Code Neovim Integration
+---@mod opencode OpenCode Neovim Integration
 ---@brief [[
---- A plugin for seamless integration between Claude Code AI assistant and Neovim.
---- This plugin provides a terminal-based interface to Claude Code within Neovim.
+--- A plugin for seamless integration between OpenCode AI assistant and Neovim.
+--- This plugin provides a terminal-based interface to OpenCode within Neovim.
 ---
 --- Requirements:
 --- - Neovim 0.7.0 or later
---- - Claude Code CLI tool installed and available in PATH
+--- - OpenCode CLI tool installed and available in PATH
 --- - plenary.nvim (dependency for git operations)
 ---
 --- Usage:
 --- ```lua
---- require('claude-code').setup({
+--- require('opencode').setup({
 ---   -- Configuration options (optional)
 --- })
 --- ```
 ---@brief ]]
 
 -- Import modules
-local config = require('claude-code.config')
-local commands = require('claude-code.commands')
-local keymaps = require('claude-code.keymaps')
-local file_refresh = require('claude-code.file_refresh')
-local terminal = require('claude-code.terminal')
-local git = require('claude-code.git')
-local version = require('claude-code.version')
+local config = require('opencode.config')
+local commands = require('opencode.commands')
+local keymaps = require('opencode.keymaps')
+local file_refresh = require('opencode.file_refresh')
+local terminal = require('opencode.terminal')
+local git = require('opencode.git')
+local version = require('opencode.version')
 
 local M = {}
 
@@ -36,26 +36,26 @@ M.config = {}
 
 -- Terminal buffer and window management
 --- @type table
-M.claude_code = terminal.terminal
+M.opencode = terminal.terminal
 
---- Force insert mode when entering the Claude Code window
+--- Force insert mode when entering the OpenCode window
 --- This is a public function used in keymaps
 function M.force_insert_mode()
   terminal.force_insert_mode(M, M.config)
 end
 
 --- Get the current active buffer number
---- @return number|nil bufnr Current Claude instance buffer number or nil
+--- @return number|nil bufnr Current OpenCode instance buffer number or nil
 local function get_current_buffer_number()
   -- Get current instance from the instances table
-  local current_instance = M.claude_code.current_instance
-  if current_instance and type(M.claude_code.instances) == 'table' then
-    return M.claude_code.instances[current_instance]
+  local current_instance = M.opencode.current_instance
+  if current_instance and type(M.opencode.instances) == 'table' then
+    return M.opencode.instances[current_instance]
   end
   return nil
 end
 
---- Toggle the Claude Code terminal window
+--- Toggle the OpenCode terminal window
 --- This is a public function used by commands
 function M.toggle()
   terminal.toggle(M, M.config, git)
@@ -67,7 +67,7 @@ function M.toggle()
   end
 end
 
---- Toggle the Claude Code terminal window with a specific command variant
+--- Toggle the OpenCode terminal window with a specific command variant
 --- @param variant_name string The name of the command variant to use
 function M.toggle_with_variant(variant_name)
   if not variant_name or not M.config.command_variants[variant_name] then

@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for Claude-Code.nvim
+about: Suggest an idea for OpenCode-Code.nvim
 title: '[FEATURE] '
 labels: enhancement
 assignees: ''

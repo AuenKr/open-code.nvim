@@ -1,15 +1,15 @@
-# Claude Code Neovim Plugin
+# OpenCode Neovim Plugin
 
-[![GitHub License](https://img.shields.io/github/license/greggh/claude-code.nvim?style=flat-square)](https://github.com/greggh/claude-code.nvim/blob/main/LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/greggh/claude-code.nvim?style=flat-square)](https://github.com/greggh/claude-code.nvim/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/greggh/claude-code.nvim?style=flat-square)](https://github.com/greggh/claude-code.nvim/issues)
-[![CI](https://img.shields.io/github/actions/workflow/status/greggh/claude-code.nvim/ci.yml?branch=main&style=flat-square&logo=github)](https://github.com/greggh/claude-code.nvim/actions/workflows/ci.yml)
+[![GitHub License](https://img.shields.io/github/license/greggh/opencode.nvim?style=flat-square)](https://github.com/greggh/opencode.nvim/blob/main/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/greggh/opencode.nvim?style=flat-square)](https://github.com/greggh/opencode.nvim/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/greggh/opencode.nvim?style=flat-square)](https://github.com/greggh/opencode.nvim/issues)
+[![CI](https://img.shields.io/github/actions/workflow/status/greggh/opencode.nvim/ci.yml?branch=main&style=flat-square&logo=github)](https://github.com/greggh/opencode.nvim/actions/workflows/ci.yml)
 [![Neovim Version](https://img.shields.io/badge/Neovim-0.7%2B-blueviolet?style=flat-square&logo=neovim)](https://github.com/neovim/neovim)
-[![Tests](https://img.shields.io/badge/Tests-44%20passing-success?style=flat-square&logo=github-actions)](https://github.com/greggh/claude-code.nvim/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/Version-0.4.2-blue?style=flat-square)](https://github.com/greggh/claude-code.nvim/releases/tag/v0.4.2)
-[![Discussions](https://img.shields.io/github/discussions/greggh/claude-code.nvim?style=flat-square&logo=github)](https://github.com/greggh/claude-code.nvim/discussions)
+[![Tests](https://img.shields.io/badge/Tests-44%20passing-success?style=flat-square&logo=github-actions)](https://github.com/greggh/opencode.nvim/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/badge/Version-0.4.2-blue?style=flat-square)](https://github.com/greggh/opencode.nvim/releases/tag/v0.4.2)
+[![Discussions](https://img.shields.io/github/discussions/greggh/opencode.nvim?style=flat-square&logo=github)](https://github.com/greggh/opencode.nvim/discussions)
 
-*A seamless integration between [Claude Code](https://github.com/anthropics/claude-code) AI assistant and Neovim*
+*A seamless integration between [OpenCode](https://github.com/anthropics/opencode) AI assistant and Neovim*
 
 [Features](#features) •
 [Requirements](#requirements) •
@@ -17,17 +17,17 @@
 [Configuration](#configuration) •
 [Usage](#usage) •
 [Contributing](#contributing) •
-[Discussions](https://github.com/greggh/claude-code.nvim/discussions)
+[Discussions](https://github.com/greggh/opencode.nvim/discussions)
 
-![Claude Code in Neovim](https://github.com/greggh/claude-code.nvim/blob/main/assets/claude-code.png?raw=true)
+![OpenCode in Neovim](https://github.com/greggh/opencode.nvim/blob/main/assets/opencode.png?raw=true)
 
-This plugin was built entirely with Claude Code in a Neovim terminal, and then inside itself using Claude Code for everything!
+This plugin was built entirely with OpenCode in a Neovim terminal, and then inside itself using OpenCode for everything!
 
 ## Features
 
-- 🚀 Toggle Claude Code in a terminal window with a single key press
+- 🚀 Toggle OpenCode in a terminal window with a single key press
 - 🧠 Support for command-line arguments like `--continue` and custom variants
-- 🔄 Automatically detect and reload files modified by Claude Code
+- 🔄 Automatically detect and reload files modified by OpenCode
 - ⚡ Real-time buffer updates when files are changed externally
 - 📱 Customizable window position and size (including floating windows)
 - 🤖 Integration with which-key (if available)
@@ -40,7 +40,7 @@ This plugin was built entirely with Claude Code in a Neovim terminal, and then i
 ## Requirements
 
 - Neovim 0.7.0 or later
-- [Claude Code CLI](https://github.com/anthropics/claude-code) tool installed and available in your PATH
+- [OpenCode CLI](https://github.com/anthropics/opencode) tool installed and available in your PATH
 - [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) (dependency for git operations)
 
 See [CHANGELOG.md](CHANGELOG.md) for version history and updates.
@@ -51,12 +51,12 @@ See [CHANGELOG.md](CHANGELOG.md) for version history and updates.
 
 ```lua
 return {
-  "greggh/claude-code.nvim",
+  "greggh/opencode.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim", -- Required for git operations
   },
   config = function()
-    require("claude-code").setup()
+    require("opencode").setup()
   end
 }
 ```
@@ -65,12 +65,12 @@ return {
 
 ```lua
 use {
-  'greggh/claude-code.nvim',
+  'greggh/opencode.nvim',
   requires = {
     'nvim-lua/plenary.nvim', -- Required for git operations
   },
   config = function()
-    require('claude-code').setup()
+    require('opencode').setup()
   end
 }
 ```
@@ -79,9 +79,9 @@ use {
 
 ```vim
 Plug 'nvim-lua/plenary.nvim'
-Plug 'greggh/claude-code.nvim'
+Plug 'greggh/opencode.nvim'
 " After installing, add this to your init.vim:
-" lua require('claude-code').setup()
+" lua require('opencode').setup()
 ```
 
 ## Configuration
@@ -89,12 +89,12 @@ Plug 'greggh/claude-code.nvim'
 The plugin can be configured by passing a table to the `setup` function. Here's the default configuration:
 
 ```lua
-require("claude-code").setup({
+require("opencode").setup({
   -- Terminal window settings
   window = {
     split_ratio = 0.3,      -- Percentage of screen for the terminal window (height for horizontal, width for vertical splits)
     position = "botright",  -- Position of the window: "botright", "topleft", "vertical", "float", etc.
-    enter_insert = true,    -- Whether to enter insert mode when opening Claude Code
+    enter_insert = true,    -- Whether to enter insert mode when opening OpenCode
     hide_numbers = true,    -- Hide line numbers in the terminal window
     hide_signcolumn = true, -- Hide the sign column in the terminal window
     
@@ -111,13 +111,13 @@ require("claude-code").setup({
   -- File refresh settings
   refresh = {
     enable = true,           -- Enable file change detection
-    updatetime = 100,        -- updatetime when Claude Code is active (milliseconds)
+    updatetime = 100,        -- updatetime when OpenCode is active (milliseconds)
     timer_interval = 1000,   -- How often to check for file changes (milliseconds)
     show_notifications = true, -- Show notification when files are reloaded
   },
   -- Git project settings
   git = {
-    use_git_root = true,     -- Set CWD to git root when opening Claude Code (if in git project)
+    use_git_root = true,     -- Set CWD to git root when opening OpenCode (if in git project)
   },
   -- Shell-specific settings
   shell = {
@@ -126,7 +126,7 @@ require("claude-code").setup({
     popd_cmd = 'popd',       -- Command to pop directory from stack (e.g., 'popd' for bash/zsh, 'exit' for nushell)
   },
   -- Command settings
-  command = "claude",        -- Command used to launch Claude Code
+  command = "opencode",        -- Command used to launch OpenCode
   -- Command variants
   command_variants = {
     -- Conversation management
@@ -139,11 +139,11 @@ require("claude-code").setup({
   -- Keymaps
   keymaps = {
     toggle = {
-      normal = "<C-,>",       -- Normal mode keymap for toggling Claude Code, false to disable
-      terminal = "<C-,>",     -- Terminal mode keymap for toggling Claude Code, false to disable
+      normal = "<C-,>",       -- Normal mode keymap for toggling OpenCode, false to disable
+      terminal = "<C-,>",     -- Terminal mode keymap for toggling OpenCode, false to disable
       variants = {
-        continue = "<leader>cC", -- Normal mode keymap for Claude Code with continue flag
-        verbose = "<leader>cV",  -- Normal mode keymap for Claude Code with verbose flag
+        continue = "<leader>cC", -- Normal mode keymap for OpenCode with continue flag
+        verbose = "<leader>cV",  -- Normal mode keymap for OpenCode with verbose flag
       },
     },
     window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
@@ -158,31 +158,31 @@ require("claude-code").setup({
 
 ```vim
 " In your Vim/Neovim commands or init file:
-:ClaudeCode
+:OpenCode
 ```
 
 ```lua
 -- Or from Lua:
-vim.cmd[[ClaudeCode]]
+vim.cmd[[OpenCode]]
 
 -- Or map to a key:
-vim.keymap.set('n', '<leader>cc', '<cmd>ClaudeCode<CR>', { desc = 'Toggle Claude Code' })
+vim.keymap.set('n', '<leader>cc', '<cmd>OpenCode<CR>', { desc = 'Toggle OpenCode' })
 ```
 
 ### Commands
 
 Basic command:
 
-- `:ClaudeCode` - Toggle the Claude Code terminal window
+- `:OpenCode` - Toggle the OpenCode terminal window
 
 Conversation management commands:
 
-- `:ClaudeCodeContinue` - Resume the most recent conversation
-- `:ClaudeCodeResume` - Display an interactive conversation picker
+- `:OpenCodeContinue` - Resume the most recent conversation
+- `:OpenCodeResume` - Display an interactive conversation picker
 
 Output options command:
 
-- `:ClaudeCodeVerbose` - Enable verbose logging with full turn-by-turn output
+- `:OpenCodeVerbose` - Enable verbose logging with full turn-by-turn output
 
 Note: Commands are automatically generated for each entry in your `command_variants` configuration.
 
@@ -190,15 +190,15 @@ Note: Commands are automatically generated for each entry in your `command_varia
 
 Default key mappings:
 
-- `<leader>ac` - Toggle Claude Code terminal window (normal mode)
-- `<C-,>` - Toggle Claude Code terminal window (both normal and terminal modes)
+- `<leader>ac` - Toggle OpenCode terminal window (normal mode)
+- `<C-,>` - Toggle OpenCode terminal window (both normal and terminal modes)
 
 Variant mode mappings (if configured):
 
-- `<leader>cC` - Toggle Claude Code with --continue flag
-- `<leader>cV` - Toggle Claude Code with --verbose flag
+- `<leader>cC` - Toggle OpenCode with --continue flag
+- `<leader>cV` - Toggle OpenCode with --verbose flag
 
-Additionally, when in the Claude Code terminal:
+Additionally, when in the OpenCode terminal:
 
 - `<C-h>` - Move to the window on the left
 - `<C-j>` - Move to the window below
@@ -207,16 +207,16 @@ Additionally, when in the Claude Code terminal:
 - `<C-f>` - Scroll full-page down
 - `<C-b>` - Scroll full-page up
 
-Note: After scrolling with `<C-f>` or `<C-b>`, you'll need to press the `i` key to re-enter insert mode so you can continue typing to Claude Code.
+Note: After scrolling with `<C-f>` or `<C-b>`, you'll need to press the `i` key to re-enter insert mode so you can continue typing to OpenCode.
 
-When Claude Code modifies files that are open in Neovim, they'll be automatically reloaded.
+When OpenCode modifies files that are open in Neovim, they'll be automatically reloaded.
 
 ### Floating Window Example
 
-To use Claude Code in a floating window:
+To use OpenCode in a floating window:
 
 ```lua
-require("claude-code").setup({
+require("opencode").setup({
   window = {
     position = "float",
     float = {
@@ -235,9 +235,9 @@ require("claude-code").setup({
 
 This plugin:
 
-1. Creates a terminal buffer running the Claude Code CLI
+1. Creates a terminal buffer running the OpenCode CLI
 2. Sets up autocommands to detect file changes on disk
-3. Automatically reloads files when they're modified by Claude Code
+3. Automatically reloads files when they're modified by OpenCode
 4. Provides convenient keymaps and commands for toggling the terminal
 5. Automatically detects git repositories and sets working directory to the git root
 
@@ -261,7 +261,7 @@ The project includes comprehensive setup for development:
 - Pre-commit hooks for code quality
 - Testing framework with 44 comprehensive tests
 - Linting and formatting tools
-- Weekly dependency updates workflow for Claude CLI and actions
+- Weekly dependency updates workflow for OpenCode CLI and actions
 
 ```bash
 # Run tests
@@ -279,13 +279,13 @@ make format
 
 ## Community
 
-- [GitHub Discussions](https://github.com/greggh/claude-code.nvim/discussions) - Get help, share ideas, and connect with other users
-- [GitHub Issues](https://github.com/greggh/claude-code.nvim/issues) - Report bugs or suggest features
-- [GitHub Pull Requests](https://github.com/greggh/claude-code.nvim/pulls) - Contribute to the project
+- [GitHub Discussions](https://github.com/greggh/opencode.nvim/discussions) - Get help, share ideas, and connect with other users
+- [GitHub Issues](https://github.com/greggh/opencode.nvim/issues) - Report bugs or suggest features
+- [GitHub Pull Requests](https://github.com/greggh/opencode.nvim/pulls) - Contribute to the project
 
 ## Acknowledgements
 
-- [Claude Code](https://github.com/anthropics/claude-code) by Anthropic - This plugin was entirely built using Claude Code. Development cost: $5.42 with 17m 12.9s of API time
+- [OpenCode](https://github.com/anthropics/opencode) by Anthropic - This plugin was entirely built using OpenCode. Development cost: $3.13 gemini 3 pro preview build using opencode
 - [Plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - Core dependency for testing framework and Git operations
 - [Semantic Versioning](https://semver.org/) - Versioning standard used in this project
 - [Contributor Covenant](https://www.contributor-covenant.org/) - Code of Conduct standard

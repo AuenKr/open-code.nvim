@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help improve Claude-Code.nvim
+about: Create a report to help improve OpenCode-Code.nvim
 title: '[BUG] '
 labels: bug
 assignees: ''
@@ -28,14 +28,14 @@ If applicable, add screenshots to help explain your problem.
 
 - OS: [e.g. Ubuntu 22.04, macOS 13.0, Windows 11]
 - Neovim version: [e.g. 0.9.0]
-- Claude Code CLI version: [e.g. 1.0.0]
+- OpenCode CLI version: [e.g. 1.0.0]
 - Plugin version or commit hash: [e.g. main branch as of date]
 
 ## Plugin Configuration
 
 ```lua
--- Your Claude-Code.nvim configuration here
-require("claude-code").setup({
+-- Your OpenCode-Code.nvim configuration here
+require("opencode").setup({
   -- Your configuration options
 })
 ```
@@ -44,7 +44,7 @@ require("claude-code").setup({
 
 Add any other context about the problem here, such as:
 - Error messages from Neovim (:messages)
-- Logs from the Claude Code terminal
+- Logs from the OpenCode terminal
 - Any recent changes to your setup
 
 ## Minimal Reproduction

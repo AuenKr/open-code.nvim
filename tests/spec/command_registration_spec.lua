@@ -1,9 +1,9 @@
--- Tests for command registration in Claude Code
+-- Tests for command registration in OpenCode
 local assert = require('luassert')
 local describe = require('plenary.busted').describe
 local it = require('plenary.busted').it
 
-local commands_module = require('claude-code.commands')
+local commands_module = require('opencode.commands')
 
 describe('command registration', function()
   local registered_commands = {}
@@ -27,55 +27,55 @@ describe('command registration', function()
     -- Mock vim.notify
     _G.vim.notify = function() end
     
-    -- Create mock claude_code module
-    local claude_code = {
+    -- Create mock opencode module
+    local opencode = {
       toggle = function() return true end,
       version = function() return '0.3.0' end
     }
     
     -- Run the register_commands function
-    commands_module.register_commands(claude_code)
+    commands_module.register_commands(opencode)
   end)
   
   describe('command registration', function()
-    it('should register ClaudeCode command', function()
+    it('should register OpenCode command', function()
       local command_registered = false
       for _, cmd in ipairs(registered_commands) do
-        if cmd.name == 'ClaudeCode' then
+        if cmd.name == 'OpenCode' then
           command_registered = true
-          assert.is_not_nil(cmd.callback, "ClaudeCode command should have a callback")
-          assert.is_not_nil(cmd.opts, "ClaudeCode command should have options")
-          assert.is_not_nil(cmd.opts.desc, "ClaudeCode command should have a description")
+          assert.is_not_nil(cmd.callback, "OpenCode command should have a callback")
+          assert.is_not_nil(cmd.opts, "OpenCode command should have options")
+          assert.is_not_nil(cmd.opts.desc, "OpenCode command should have a description")
           break
         end
       end
       
-      assert.is_true(command_registered, "ClaudeCode command should be registered")
+      assert.is_true(command_registered, "OpenCode command should be registered")
     end)
     
-    it('should register ClaudeCodeVersion command', function()
+    it('should register OpenCodeVersion command', function()
       local command_registered = false
       for _, cmd in ipairs(registered_commands) do
-        if cmd.name == 'ClaudeCodeVersion' then
+        if cmd.name == 'OpenCodeVersion' then
           command_registered = true
-          assert.is_not_nil(cmd.callback, "ClaudeCodeVersion command should have a callback")
-          assert.is_not_nil(cmd.opts, "ClaudeCodeVersion command should have options")
-          assert.is_not_nil(cmd.opts.desc, "ClaudeCodeVersion command should have a description")
+          assert.is_not_nil(cmd.callback, "OpenCodeVersion command should have a callback")
+          assert.is_not_nil(cmd.opts, "OpenCodeVersion command should have options")
+          assert.is_not_nil(cmd.opts.desc, "OpenCodeVersion command should have a description")
           break
         end
       end
       
-      assert.is_true(command_registered, "ClaudeCodeVersion command should be registered")
+      assert.is_true(command_registered, "OpenCodeVersion command should be registered")
     end)
   end)
   
   describe('command execution', function()
-    it('should call toggle when ClaudeCode command is executed', function()
+    it('should call toggle when OpenCode command is executed', function()
       local toggle_called = false
       
-      -- Find the ClaudeCode command and execute its callback
+      -- Find the OpenCode command and execute its callback
       for _, cmd in ipairs(registered_commands) do
-        if cmd.name == 'ClaudeCode' then
+        if cmd.name == 'OpenCode' then
           -- Create a mock that can detect when toggle is called
           local original_toggle = cmd.callback
           cmd.callback = function()
@@ -89,10 +89,10 @@ describe('command registration', function()
         end
       end
       
-      assert.is_true(toggle_called, "Toggle function should be called when ClaudeCode command is executed")
+      assert.is_true(toggle_called, "Toggle function should be called when OpenCode command is executed")
     end)
     
-    it('should call notify with version when ClaudeCodeVersion command is executed', function()
+    it('should call notify with version when OpenCodeVersion command is executed', function()
       local notify_called = false
       local notify_message = nil
       local notify_level = nil
@@ -105,17 +105,17 @@ describe('command registration', function()
         return true
       end
       
-      -- Find the ClaudeCodeVersion command and execute its callback
+      -- Find the OpenCodeVersion command and execute its callback
       for _, cmd in ipairs(registered_commands) do
-        if cmd.name == 'ClaudeCodeVersion' then
+        if cmd.name == 'OpenCodeVersion' then
           cmd.callback()
           break
         end
       end
       
-      assert.is_true(notify_called, "vim.notify should be called when ClaudeCodeVersion command is executed")
+      assert.is_true(notify_called, "vim.notify should be called when OpenCodeVersion command is executed")
       assert.is_not_nil(notify_message, "Notification message should not be nil")
-      assert.is_not_nil(string.find(notify_message, 'Claude Code version'), "Notification should contain version information")
+      assert.is_not_nil(string.find(notify_message, 'OpenCode version'), "Notification should contain version information")
     end)
   end)
 end)

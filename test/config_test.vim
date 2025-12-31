@@ -1,4 +1,4 @@
-" Config module test script for Claude Code
+" Config module test script for OpenCode Code
 " Tests the configuration validation and merging
 
 echo "Config test started"
@@ -20,7 +20,7 @@ end
 print(colored("Testing config module...", "blue"))
 
 -- Load the config module
-local ok, config = pcall(require, "claude-code.config")
+local ok, config = pcall(require, "opencode.config")
 if not ok then
   print(colored("✗ Failed to load config module: " .. tostring(config), "red"))
   vim.cmd('cq')  -- Exit with error code

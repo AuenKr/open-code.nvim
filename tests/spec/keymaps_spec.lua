@@ -1,15 +1,15 @@
--- Tests for keymaps in Claude Code
+-- Tests for keymaps in OpenCode
 local assert = require('luassert')
 local describe = require('plenary.busted').describe
 local it = require('plenary.busted').it
 
-local keymaps = require('claude-code.keymaps')
+local keymaps = require('opencode.keymaps')
 
 describe('keymaps', function()
   local mapped_keys = {}
   local augroup_id = 100
   local registered_autocmds = {}
-  local claude_code
+  local opencode
   local config
   
   before_each(function()
@@ -58,7 +58,7 @@ describe('keymaps', function()
     end
     
     -- Setup test objects
-    claude_code = {
+    opencode = {
       toggle = function() end
     }
     
@@ -75,7 +75,7 @@ describe('keymaps', function()
   
   describe('register_keymaps', function()
     it('should register normal mode toggle keybinding', function()
-      keymaps.register_keymaps(claude_code, config)
+      keymaps.register_keymaps(opencode, config)
       
       local normal_toggle_found = false
       for _, mapping in ipairs(mapped_keys) do
@@ -89,7 +89,7 @@ describe('keymaps', function()
     end)
     
     it('should register terminal mode toggle keybinding', function()
-      keymaps.register_keymaps(claude_code, config)
+      keymaps.register_keymaps(opencode, config)
       
       local terminal_toggle_found = false
       for _, mapping in ipairs(mapped_keys) do
@@ -107,7 +107,7 @@ describe('keymaps', function()
       config.keymaps.toggle.normal = false
       config.keymaps.toggle.terminal = false
       
-      keymaps.register_keymaps(claude_code, config)
+      keymaps.register_keymaps(opencode, config)
       
       local toggle_keybindings_found = false
       for _, mapping in ipairs(mapped_keys) do
@@ -122,9 +122,12 @@ describe('keymaps', function()
     end)
     
     it('should register window navigation keybindings when enabled', function()
-      -- Setup claude_code table with buffer
-      claude_code.claude_code = { bufnr = 42 }
-      
+      -- Setup opencode table with buffer
+      opencode.opencode = {
+        instances = { ['global'] = 42 },
+        current_instance = 'global'
+      }
+
       -- Enable window navigation
       config.keymaps.window_navigation = true
       
@@ -144,7 +147,7 @@ describe('keymaps', function()
         return bufnr == 42
       end
       
-      keymaps.setup_terminal_navigation(claude_code, config)
+      keymaps.setup_terminal_navigation(opencode, config)
       
       -- For the window navigation test, we don't need to check the mapped_keys
       -- Since we're just testing if the function runs without error when window_navigation is true
@@ -153,9 +156,12 @@ describe('keymaps', function()
     end)
     
     it('should not register window navigation keybindings when disabled', function()
-      -- Setup claude_code table with buffer
-      claude_code.claude_code = { bufnr = 42 }
-      
+      -- Setup opencode table with buffer
+      opencode.opencode = {
+        instances = { ['global'] = 42 },
+        current_instance = 'global'
+      }
+
       -- Disable window navigation
       config.keymaps.window_navigation = false
       
@@ -178,7 +184,7 @@ describe('keymaps', function()
         return bufnr == 42
       end
       
-      keymaps.setup_terminal_navigation(claude_code, config)
+      keymaps.setup_terminal_navigation(opencode, config)
       
       local window_navigation_found = false
       for _, mapping in ipairs(mapped_keys) do

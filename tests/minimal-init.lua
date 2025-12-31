@@ -1,4 +1,4 @@
--- Minimal configuration for testing the Claude Code plugin
+-- Minimal configuration for testing the OpenCode plugin
 -- Used for bug reproduction and testing
 
 -- Detect the plugin directory (works whether run from plugin root or a different directory)
@@ -52,12 +52,12 @@ pcall(require, 'plenary.busted')
 print('Runtime path: ' .. vim.o.runtimepath)
 
 -- Load the plugin
-local status_ok, claude_code = pcall(require, 'claude-code')
+local status_ok, opencode = pcall(require, 'opencode')
 if status_ok then
-  print('✓ Successfully loaded Claude Code plugin')
+  print('✓ Successfully loaded OpenCode plugin')
 
   -- First create a validated config (in silent mode)
-  local config_module = require('claude-code.config')
+  local config_module = require('opencode.config')
   local test_config = config_module.parse_config({
     window = {
       height_ratio = 0.3,
@@ -89,15 +89,15 @@ if status_ok then
 
   -- Print available commands for user reference
   print('\nAvailable Commands:')
-  print('  :ClaudeCode             - Start a new Claude Code session')
-  print('  :ClaudeCodeToggle       - Toggle the Claude Code terminal')
-  print('  :ClaudeCodeRestart      - Restart the Claude Code session')
-  print('  :ClaudeCodeSuspend      - Suspend the current Claude Code session')
-  print('  :ClaudeCodeResume       - Resume the suspended Claude Code session')
-  print('  :ClaudeCodeQuit         - Quit the current Claude Code session')
-  print('  :ClaudeCodeRefreshFiles - Refresh the current working directory information')
+  print('  :OpenCode             - Start a new OpenCode session')
+  print('  :OpenCodeToggle       - Toggle the OpenCode terminal')
+  print('  :OpenCodeRestart      - Restart the OpenCode session')
+  print('  :OpenCodeSuspend      - Suspend the current OpenCode session')
+  print('  :OpenCodeResume       - Resume the suspended OpenCode session')
+  print('  :OpenCodeQuit         - Quit the current OpenCode session')
+  print('  :OpenCodeRefreshFiles - Refresh the current working directory information')
 else
-  print('✗ Failed to load Claude Code plugin: ' .. tostring(claude_code))
+  print('✗ Failed to load OpenCode plugin: ' .. tostring(opencode))
 end
 
 -- Set up minimal UI elements
@@ -105,6 +105,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = 'yes'
 
-print('\nClaude Code minimal test environment loaded.')
+print('\nOpenCode minimal test environment loaded.')
 print('- Type :messages to see any error messages')
-print("- Try ':ClaudeCode' to start a new session")
+print("- Try ':OpenCode' to start a new session")

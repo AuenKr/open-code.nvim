@@ -1,44 +1,44 @@
-*claude-code.txt*             Seamless integration between Claude Code AI and Neovim
+*opencode.txt*             Seamless integration between OpenCode AI and Neovim
 
 ==============================================================================
-CONTENTS                                                   *claude-code-contents*
+CONTENTS                                                   *opencode-contents*
 
-  1. Introduction .......................... |claude-code-introduction|
-  2. Installation .......................... |claude-code-installation|
-  3. Usage ................................ |claude-code-usage|
-  4. Configuration ........................ |claude-code-configuration|
-  5. Commands ............................. |claude-code-commands|
-  6. Mappings ............................. |claude-code-mappings|
-  7. Contributing ......................... |claude-code-contributing|
-  8. License .............................. |claude-code-license|
+  1. Introduction .......................... |opencode-introduction|
+  2. Installation .......................... |opencode-installation|
+  3. Usage ................................ |opencode-usage|
+  4. Configuration ........................ |opencode-configuration|
+  5. Commands ............................. |opencode-commands|
+  6. Mappings ............................. |opencode-mappings|
+  7. Contributing ......................... |opencode-contributing|
+  8. License .............................. |opencode-license|
 
 ==============================================================================
-1. INTRODUCTION                                        *claude-code-introduction*
+1. INTRODUCTION                                        *opencode-introduction*
 
-Claude Code is a plugin that provides seamless integration between the Claude
+OpenCode is a plugin that provides seamless integration between the OpenCode
 Code AI assistant (command-line tool) and Neovim. It allows you to:
 
-- Toggle Claude Code in a terminal window at the bottom of your Neovim screen
-- Automatically detect and reload files modified by Claude Code
-- Keep your Neovim buffers in sync with any changes made by Claude
+- Toggle OpenCode in a terminal window at the bottom of your Neovim screen
+- Automatically detect and reload files modified by OpenCode
+- Keep your Neovim buffers in sync with any changes made by OpenCode
 
-NOTE: This plugin requires the official Claude Code CLI tool to be installed
+NOTE: This plugin requires the official OpenCode CLI tool to be installed
 and available in your system's PATH.
 
 ==============================================================================
-2. INSTALLATION                                        *claude-code-installation*
+2. INSTALLATION                                        *opencode-installation*
 
 Install using your favorite plugin manager:
 
 Using lazy.nvim:
 >lua
   return {
-    "greggh/claude-code.nvim",
+    "greggh/opencode.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim", -- Required for git operations
     },
     config = function()
-      require("claude-code").setup()
+      require("opencode").setup()
     end
   }
 <
@@ -46,53 +46,53 @@ Using lazy.nvim:
 Using vim-plug:
 >vim
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'greggh/claude-code.nvim'
+  Plug 'greggh/opencode.nvim'
   " After installing, add this to your init.vim:
-  " lua require('claude-code').setup()
+  " lua require('opencode').setup()
 <
 
 Using packer.nvim:
 >lua
   use {
-    'greggh/claude-code.nvim',
+    'greggh/opencode.nvim',
     requires = {
       'nvim-lua/plenary.nvim', -- Required for git operations
     },
     config = function()
-      require('claude-code').setup()
+      require('opencode').setup()
     end
   }
 <
 
 PREREQUISITES:
 - Neovim 0.7.0 or later
-- Claude Code CLI tool (https://github.com/anthropics/claude-code)
+- OpenCode CLI tool (https://github.com/anthropics/opencode)
 - plenary.nvim plugin (https://github.com/nvim-lua/plenary.nvim) for git operations
 
 ==============================================================================
-3. USAGE                                                    *claude-code-usage*
+3. USAGE                                                    *opencode-usage*
 
-- Use the `:ClaudeCode` command to toggle the Claude Code terminal window
-- Press <leader>ac in normal mode to toggle Claude Code terminal window
-- Press <C-o> in the terminal to close the Claude Code window
-- When Claude Code modifies files that are open in Neovim, they'll be
+- Use the `:OpenCode` command to toggle the OpenCode terminal window
+- Press <leader>ac in normal mode to toggle OpenCode terminal window
+- Press <C-o> in the terminal to close the OpenCode window
+- When OpenCode modifies files that are open in Neovim, they'll be
   automatically reloaded
-- When in a git repository, Claude Code will automatically use the git root
+- When in a git repository, OpenCode will automatically use the git root
   directory as its working directory using pushd/popd commands (configurable)
 
 ==============================================================================
-4. CONFIGURATION                                    *claude-code-configuration*
+4. CONFIGURATION                                    *opencode-configuration*
 
 Configure the plugin by passing a table to the setup function. Below is the
 default configuration:
 
 >lua
-  require("claude-code").setup({
+  require("opencode").setup({
     -- Terminal window settings
     window = {
       split_ratio = 0.3,      -- Percentage of screen for the terminal window (height or width)
       position = "botright",  -- Position of the window: "botright", "topleft", "vertical"/"vsplit", "float", etc.
-      enter_insert = true,    -- Whether to enter insert mode when opening Claude Code
+      enter_insert = true,    -- Whether to enter insert mode when opening OpenCode
       start_in_normal_mode = false, -- Whether to start in normal mode instead of insert mode
       hide_numbers = true,    -- Hide line numbers in the terminal window
       hide_signcolumn = true, -- Hide the sign column in the terminal window
@@ -110,16 +110,16 @@ default configuration:
     -- File refresh settings
     refresh = {
       enable = true,           -- Enable file change detection
-      updatetime = 100,        -- updatetime when Claude Code is active (milliseconds)
+      updatetime = 100,        -- updatetime when OpenCode is active (milliseconds)
       timer_interval = 1000,   -- How often to check for file changes (milliseconds)
       show_notifications = true, -- Show notification when files are reloaded
     },
     -- Git project settings
     git = {
-      use_git_root = true,     -- Set CWD to git root when opening Claude Code (if in git project)
+      use_git_root = true,     -- Set CWD to git root when opening OpenCode (if in git project)
     },
     -- Command settings
-    command = "claude",        -- Command used to launch Claude Code (do not include --cwd)
+    command = "opencode",        -- Command used to launch OpenCode (do not include --cwd)
     -- Command variants
     command_variants = {
       -- Conversation management
@@ -132,11 +132,11 @@ default configuration:
     -- Keymaps
     keymaps = {
       toggle = {
-        normal = "<leader>ac",  -- Normal mode keymap for toggling Claude Code
-        terminal = "<C-o>",     -- Terminal mode keymap for toggling Claude Code
+        normal = "<C-,>",       -- Normal mode keymap for toggling OpenCode
+        terminal = "<C-,>",     -- Terminal mode keymap for toggling OpenCode
         variants = {
-          continue = "<leader>cC", -- Normal mode keymap for Claude Code with continue flag
-          verbose = "<leader>cV",  -- Normal mode keymap for Claude Code with verbose flag
+          continue = "<leader>cC", -- Normal mode keymap for OpenCode with continue flag
+          verbose = "<leader>cV",  -- Normal mode keymap for OpenCode with verbose flag
         },
       }
     }
@@ -144,38 +144,37 @@ default configuration:
 <
 
 ==============================================================================
-5. COMMANDS                                                *claude-code-commands*
+5. COMMANDS                                                *opencode-commands*
 
-:ClaudeCode                                                       *:ClaudeCode*
-    Toggle the Claude Code terminal window.
+:OpenCode                                                       *:OpenCode*
+    Toggle the OpenCode terminal window.
 
 Conversation Management Commands:
-:ClaudeCodeContinue                                           *:ClaudeCodeContinue*
-    Toggle Claude Code with the --continue flag to resume the most recent conversation.
+:OpenCodeContinue                                           *:OpenCodeContinue*
+    Toggle OpenCode with the --continue flag to resume the most recent conversation.
 
-:ClaudeCodeResume                                             *:ClaudeCodeResume*
-    Toggle Claude Code with the --resume flag to display an interactive conversation picker.
+:OpenCodeResume                                             *:OpenCodeResume*
+    Toggle OpenCode with the --resume flag to display an interactive conversation picker.
 
 Output Options Commands:
-:ClaudeCodeVerbose                                           *:ClaudeCodeVerbose*
-    Toggle Claude Code with the --verbose flag for full turn-by-turn output.
+:OpenCodeVerbose                                           *:OpenCodeVerbose*
+    Toggle OpenCode with the --verbose flag for full turn-by-turn output.
 
 Note: Commands are automatically generated for each entry in your command_variants configuration.
 
 ==============================================================================
-6. MAPPINGS                                                *claude-code-mappings*
+6. MAPPINGS                                                *opencode-mappings*
 
 Default key mappings:
 
-  <leader>ac   Toggle Claude Code terminal window (normal mode)
-  <C-.>        Toggle Claude Code terminal window (both normal and terminal modes)
+  <C-,>        Toggle OpenCode terminal window (both normal and terminal modes)
   
 Variant mode mappings (if configured):
 
-  <leader>cC   Toggle Claude Code with --continue flag
-  <leader>cV   Toggle Claude Code with --verbose flag
+  <leader>cC   Toggle OpenCode with --continue flag
+  <leader>cV   Toggle OpenCode with --verbose flag
 
-Additionally, when in the Claude Code terminal:
+Additionally, when in the OpenCode terminal:
 
   <C-h>        Move to the window on the left
   <C-j>        Move to the window below
@@ -185,19 +184,19 @@ Additionally, when in the Claude Code terminal:
   <C-b>        Scroll full-page up
 
 Note: After scrolling with <C-f> or <C-b>, you'll need to press the 'i' key
-to re-enter insert mode so you can continue typing to Claude Code.
+to re-enter insert mode so you can continue typing to OpenCode.
 
 You can customize these mappings in the configuration.
 
 ==============================================================================
-7. CONTRIBUTING                                          *claude-code-contributing*
+7. CONTRIBUTING                                          *opencode-contributing*
 
-Contributions to Claude Code are welcome! If you would like to contribute,
+Contributions to OpenCode are welcome! If you would like to contribute,
 please check the CONTRIBUTING.md file in the repository for guidelines:
-https://github.com/greggh/claude-code.nvim/blob/main/CONTRIBUTING.md
+https://github.com/greggh/opencode.nvim/blob/main/CONTRIBUTING.md
 
 ==============================================================================
-8. LICENSE                                                  *claude-code-license*
+8. LICENSE                                                  *opencode-license*
 
 MIT License
 
