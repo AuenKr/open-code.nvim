@@ -33,7 +33,7 @@ For help with using OpenCode:
 
 ## OpenCode File
 
-See the [CLAUDE.md](CLAUDE.md) file for additional configuration options and tips for using OpenCode effectively.
+See the [OPENCODE.md](OPENCODE.md) file for additional configuration options and tips for using OpenCode effectively.
 
 ## Community Channels
 
