@@ -277,6 +277,19 @@ scripts/setup-hooks.sh
 make format
 ```
 
+## Troubleshooting
+
+If you encounter issues, you can run the following command in Neovim to verify your installation and dependencies:
+
+```vim
+:checkhealth opencode
+```
+
+This will check for:
+- Neovim version requirements
+- OpenCode CLI installation
+- Required dependencies (plenary.nvim)
+
 ## Community
 
 - [GitHub Discussions](https://github.com/AuenKr/open-code.nvim/discussions) - Get help, share ideas, and connect with other users
