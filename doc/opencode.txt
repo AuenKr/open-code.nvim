@@ -132,11 +132,12 @@ default configuration:
     -- Keymaps
     keymaps = {
       toggle = {
-        normal = "<leader>ac",  -- Normal mode keymap for toggling Opencode
+        normal = "<leader>a",   -- Normal mode keymap for toggling Opencode
         terminal = "<C-o>",     -- Terminal mode keymap for toggling Opencode
         variants = {
-          continue = "<leader>aC", -- Normal mode keymap for Opencode with continue flag
-          verbose = "<leader>aV",  -- Normal mode keymap for Opencode with verbose flag
+          -- variants are disabled by default
+          -- continue = "<leader>aC", -- Normal mode keymap for Opencode with continue flag
+          -- verbose = "<leader>aV",  -- Normal mode keymap for Opencode with verbose flag
         },
       }
     }
@@ -148,6 +149,9 @@ default configuration:
 
 :Opencode                                                       *:Opencode*
     Toggle the Opencode terminal window.
+
+:OpencodeRestart                                             *:OpencodeRestart*
+    Restart the Opencode session (delete buffer and start new).
 
 Conversation Management Commands:
 :OpencodeContinue                                           *:OpencodeContinue*
@@ -167,8 +171,11 @@ Note: Commands are automatically generated for each entry in your command_varian
 
 Default key mappings:
 
-  <leader>ac   Toggle Opencode terminal window (normal mode)
+  <leader>a    Toggle Opencode terminal window (normal mode)
+  <leader>A    Start a new Opencode session (restart)
+  <leader>a    (Visual mode) Add selected text to Opencode context
   <C-o>        Toggle Opencode terminal window (terminal mode)
+  <Esc><Esc>   Exit terminal mode to normal mode
   
 Variant mode mappings (if configured):
 

@@ -26,6 +26,8 @@ This plugin was built entirely with Opencode in a Neovim terminal, and then insi
 ## Features
 
 - 🚀 Toggle Opencode in a terminal window with a single key press
+- 📝 Add code context easily via visual selection
+- 🔄 Quick session restart/reset
 - 🧠 Support for command-line arguments like `--continue` and custom variants
 - 🔄 Automatically detect and reload files modified by Opencode
 - ⚡ Real-time buffer updates when files are changed externally
@@ -35,7 +37,7 @@ This plugin was built entirely with Opencode in a Neovim terminal, and then insi
 - 🧩 Modular and maintainable code structure
 - 📋 Type annotations with LuaCATS for better IDE support
 - ✅ Configuration validation to prevent errors
-- 🧪 Testing framework for reliability (44 comprehensive tests)
+- 🧪 Testing framework for reliability (73 comprehensive tests)
 
 ## Requirements
 
@@ -139,11 +141,12 @@ require("opencode").setup({
   -- Keymaps
   keymaps = {
     toggle = {
-      normal = "<C-,>",       -- Normal mode keymap for toggling Opencode, false to disable
-      terminal = "<C-,>",     -- Terminal mode keymap for toggling Opencode, false to disable
+      normal = "<leader>a",   -- Normal mode keymap for toggling Opencode
+      terminal = "<C-o>",     -- Terminal mode keymap for toggling Opencode
       variants = {
-        continue = "<leader>cC", -- Normal mode keymap for Opencode with continue flag
-        verbose = "<leader>cV",  -- Normal mode keymap for Opencode with verbose flag
+        -- variants are disabled by default to allow <leader>a as a direct toggle
+        -- continue = "<leader>aC", -- Normal mode keymap for Opencode with continue flag
+        -- verbose = "<leader>aV",  -- Normal mode keymap for Opencode with verbose flag
       },
     },
     window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
@@ -174,6 +177,7 @@ vim.keymap.set('n', '<leader>cc', '<cmd>Opencode<CR>', { desc = 'Toggle Opencode
 Basic command:
 
 - `:Opencode` - Toggle the Opencode terminal window
+- `:OpencodeRestart` - Restart the Opencode session (clear buffer and start new)
 
 Conversation management commands:
 
@@ -190,8 +194,11 @@ Note: Commands are automatically generated for each entry in your `command_varia
 
 Default key mappings:
 
-- `<leader>ac` - Toggle Opencode terminal window (normal mode)
+- `<leader>a` - Toggle Opencode terminal window (normal mode)
+- `<leader>A` - Start a new Opencode session / Restart (normal mode)
+- `<leader>a` - (Visual Mode) Add selected text to Opencode context
 - `<C-o>` - Toggle Opencode terminal window (terminal mode)
+- `<Esc><Esc>` - Exit terminal mode to normal mode
 
 Variant mode mappings (if configured):
 
